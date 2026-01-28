@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,6 @@
 		055006471E7031C800B9788F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 055006491E7031C800B9788F /* InfoPlist.strings */; };
 		0550064C1E70672600B9788F /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550064B1E70672600B9788F /* SpriteKit.framework */; };
 		0550064E1E70673500B9788F /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550064D1E70673500B9788F /* GameplayKit.framework */; };
-		0581344B259BBA0E0059E50C /* Default.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 05813449259BBA0E0059E50C /* Default.xcconfig */; };
 		0581344C259BBA0E0059E50C /* Developer.xcconfig.template in Resources */ = {isa = PBXBuildFile; fileRef = 0581344A259BBA0E0059E50C /* Developer.xcconfig.template */; };
 		0583BC181E5731F90003AE2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583BC171E5731F90003AE2A /* AppDelegate.swift */; };
 		0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1B1E5731F90003AE2A /* Assets.xcassets */; };
@@ -27,7 +26,6 @@
 		0592344E1E66276C00C8A1DB /* CatIsSleeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0592344D1E66276C00C8A1DB /* CatIsSleeping.swift */; };
 		059234511E66297100C8A1DB /* CatDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234501E66297100C8A1DB /* CatDirection.swift */; };
 		059234531E66357E00C8A1DB /* CatIsClawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234521E66357E00C8A1DB /* CatIsClawing.swift */; };
-		FA3FBD402F29F64300BAEE1D /* Developer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,8 +160,9 @@
 		0583BC0C1E5731F90003AE2A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 2620;
 				ORGANIZATIONNAME = "Matusalem Marques";
 				TargetAttributes = {
 					0583BC131E5731F90003AE2A = {
@@ -203,9 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0521F2F7259BC90C00CCE0AF /* LICENSE.txt in Resources */,
-				FA3FBD402F29F64300BAEE1D /* Developer.xcconfig in Resources */,
 				0581344C259BBA0E0059E50C /* Developer.xcconfig.template in Resources */,
-				0581344B259BBA0E0059E50C /* Default.xcconfig in Resources */,
 				0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */,
 				055006471E7031C800B9788F /* InfoPlist.strings in Resources */,
 				0583BC1F1E5731F90003AE2A /* Main.storyboard in Resources */,
@@ -292,9 +289,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -312,6 +311,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -351,9 +351,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -364,7 +366,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -375,9 +379,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cat/Cat.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020.366;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Cat/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -390,9 +399,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cat/Cat.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020.366;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Cat/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
