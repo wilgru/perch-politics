@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class CatIsMoving : CatState {
-    var speed : CGFloat = 20.0
+    var speed : CGFloat = 30.0
     
     var frames : [CatDirection:[String]] = [
         .left : ["left1","left2"],

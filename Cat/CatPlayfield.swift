@@ -10,5 +10,4 @@ import Foundation
 protocol CatPlayfield {
     var catPosition : NSPoint { get set }
     var destination : NSPoint { get }
-    var catCanMove : Bool { get }
 }

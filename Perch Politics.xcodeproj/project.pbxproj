@@ -26,6 +26,8 @@
 		0592344E1E66276C00C8A1DB /* CatIsSleeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0592344D1E66276C00C8A1DB /* CatIsSleeping.swift */; };
 		059234511E66297100C8A1DB /* CatDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234501E66297100C8A1DB /* CatDirection.swift */; };
 		059234531E66357E00C8A1DB /* CatIsClawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234521E66357E00C8A1DB /* CatIsClawing.swift */; };
+		FA6F8C8F2F2F3D5100FFF6AB /* CatInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F8C8E2F2F3D5100FFF6AB /* CatInstance.swift */; };
+		FA6F8C912F2F400900FFF6AB /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F8C902F2F400900FFF6AB /* Cat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		05A806981E702B0C002D12FB /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		05AF44EB1E6EEF8B006F01AE /* Cat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cat.entitlements; sourceTree = "<group>"; };
 		FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = Developer.xcconfig; sourceTree = "<group>"; };
+		FA6F8C8E2F2F3D5100FFF6AB /* CatInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatInstance.swift; sourceTree = "<group>"; };
+		FA6F8C902F2F400900FFF6AB /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 		0583BC161E5731F90003AE2A /* Cat */ = {
 			isa = PBXGroup;
 			children = (
+				FA6F8C902F2F400900FFF6AB /* Cat.swift */,
+				FA6F8C8E2F2F3D5100FFF6AB /* CatInstance.swift */,
 				0592344F1E6627A600C8A1DB /* Cat States */,
 				0583BC171E5731F90003AE2A /* AppDelegate.swift */,
 				0583BC281E5749D90003AE2A /* CatState.swift */,
@@ -217,12 +223,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				059234441E66267700C8A1DB /* CatIsAwake.swift in Sources */,
+				FA6F8C8F2F2F3D5100FFF6AB /* CatInstance.swift in Sources */,
 				059234511E66297100C8A1DB /* CatDirection.swift in Sources */,
 				0592344E1E66276C00C8A1DB /* CatIsSleeping.swift in Sources */,
 				059234421E66263100C8A1DB /* CatIsMoving.swift in Sources */,
 				0592344A1E66271900C8A1DB /* CatIsScratching.swift in Sources */,
 				059234461E6626BF00C8A1DB /* CatIsStopped.swift in Sources */,
 				0583BC291E5749D90003AE2A /* CatState.swift in Sources */,
+				FA6F8C912F2F400900FFF6AB /* Cat.swift in Sources */,
 				0583BC181E5731F90003AE2A /* AppDelegate.swift in Sources */,
 				059234401E66238000C8A1DB /* CatPlayfield.swift in Sources */,
 				059234481E6626EE00C8A1DB /* CatIsLicking.swift in Sources */,

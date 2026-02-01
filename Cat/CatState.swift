@@ -43,7 +43,7 @@ class CatState : GKState {
         let destination = playfield.destination
         let distance = hypot(destination.x - origin.x, destination.y - origin.y)
         
-        if playfield.catCanMove && distance > distanceBeforeWakingUp {
+        if distance > distanceBeforeWakingUp {
             stateMachine.enter(CatIsAwake.self)
         } else if let nextState = nextState, time >= timeBeforeNextState {
             stateMachine.enter(nextState.self)

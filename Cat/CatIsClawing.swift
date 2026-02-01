@@ -48,10 +48,8 @@ class CatIsClawing : CatState { // togi
     override func update(deltaTime seconds: TimeInterval) {
         guard let stateMachine = stateMachine else { return }
         time += seconds
-        
-        if playfield.catCanMove {
-            stateMachine.enter(CatIsMoving.self)
-        } else if let nextState = nextState, time >= timeBeforeNextState {
+  
+        if let nextState = nextState, time >= timeBeforeNextState {
             stateMachine.enter(nextState.self)
         }
     }
