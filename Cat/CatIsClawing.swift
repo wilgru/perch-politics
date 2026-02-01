@@ -10,13 +10,11 @@ import GameplayKit
 
 class CatIsClawing : CatState { // togi
     var frames : [CatDirection:[String]] = [
-        .up : ["utogi1","utogi2"],
-        .down : ["dtogi1","dtogi2"],
         .left : ["ltogi","ltogi2"],
         .right : ["rtogi1","rtogi2"],
     ]
     
-    var direction : CatDirection = .up {
+    var direction : CatDirection = .right {
         didSet {
             guard direction != oldValue else { return }
             

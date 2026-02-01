@@ -9,20 +9,14 @@ import SpriteKit
 import GameplayKit
 
 class CatIsMoving : CatState {
-    var speed : CGFloat = 13.0
+    var speed : CGFloat = 20.0
     
     var frames : [CatDirection:[String]] = [
-        .up : ["up1","up2"],
-        .down : ["down1","down2"],
         .left : ["left1","left2"],
         .right : ["right1","right2"],
-        .upRight : ["upright1","upright2"],
-        .upLeft : ["upleft1","upleft2"],
-        .downRight : ["dwright1","dwright2"],
-        .downLeft : ["dwleft1","dwleft2"]
     ]
     
-    var direction : CatDirection = .up {
+    var direction : CatDirection = .left {
         didSet {
             guard direction != oldValue else { return }
             
