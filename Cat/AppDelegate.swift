@@ -7,7 +7,6 @@
 
 import Cocoa
 import CoreGraphics
-import ApplicationServices
 import SpriteKit
 import GameplayKit
 
@@ -71,16 +70,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let options = [
-            kAXTrustedCheckOptionPrompt.takeRetainedValue() as String: true
-        ] as CFDictionary
-
-        let trusted = AXIsProcessTrustedWithOptions(options)
-
-        if !trusted {
-            print("Accessibility permission not yet granted.")
-        }
-        
         let rect = NSRect(x: 0, y: 0, width: 64, height: 64)
         
         let catTextures = SKTextureAtlas(named: skinName)
