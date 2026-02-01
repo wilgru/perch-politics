@@ -6,6 +6,8 @@
 //
 
 import Cocoa
+import CoreGraphics
+import ApplicationServices
 import SpriteKit
 import GameplayKit
 
@@ -69,6 +71,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let options = [
+            kAXTrustedCheckOptionPrompt.takeRetainedValue() as String: true
+        ] as CFDictionary
+
+        let trusted = AXIsProcessTrustedWithOptions(options)
+
+        if !trusted {
+            print("Accessibility permission not yet granted.")
+        }
+        
         let rect = NSRect(x: 0, y: 0, width: 64, height: 64)
         
         let catTextures = SKTextureAtlas(named: skinName)
@@ -88,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         spriteView.menu = menu
         
         window = NSWindow(contentRect: rect, styleMask: .borderless, backing: .buffered, defer: false)
-        window.backgroundColor = NSColor.clear
+        window.backgroundColor = NSColor.white // TODO: change back to .clear
         window.hasShadow = false  // Shadow is not updated when sprite changes
         window.isMovableByWindowBackground = true
         window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow))) // Over all windows and menu bar, but under the screen saver
@@ -141,6 +153,91 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
+extension NSWindow {
+    var topOfActiveWindowOrDockOrBottom: (
+        leftX: Double,
+        rightX: Double,
+        topY: Double
+    ) {
+        return self.activeWindowGeometry ?? self.dockGeometry ?? (32, 0, 0)
+    }
+    
+    var activeWindowGeometry: (
+        leftX: Double,
+        rightX: Double,
+        topY: Double
+    )? {
+        let options = CGWindowListOption.optionOnScreenOnly
+        guard let windowList = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: AnyObject]] else {
+            print("Could not get window list")
+            return nil
+        }
+        
+        guard let screenHeight = NSScreen.main?.frame.height else {
+            print("Could not find main screen")
+            return nil
+        }
+
+        guard let frontAppPID = NSWorkspace.shared.frontmostApplication?.processIdentifier else {
+            print("Could not find front app PID")
+            return nil
+        }
+        
+        for window in windowList {
+            if let windowPID = window[kCGWindowOwnerPID as String] as? Int,
+               let boundsAny = window[kCGWindowBounds as String],
+               let layer = window[kCGWindowLayer as String] as? Int,
+                   windowPID == frontAppPID,
+                   layer == 0 // layer 0 for normal windows
+                {
+                if CFGetTypeID(boundsAny as CFTypeRef) == CFDictionaryGetTypeID() {
+                    guard let bounds = CGRect(dictionaryRepresentation: boundsAny as! CFDictionary) else {
+                        print("Could not convert type of bounds to CFDictionary")
+                        return nil
+                    }
+                    
+                    return (
+                        leftX: Double(bounds.origin.x + 32 + 30), //30 for corner radius
+                        rightX:  Double(bounds.origin.x + bounds.size.width - 32),
+                        topY:  Double(screenHeight - bounds.origin.y)
+                    )
+                }
+            }
+        }
+        print("Could not find a window to get geometry for")
+        return nil
+    }
+    
+    var dockGeometry: (
+        leftX: Double,
+        rightX: Double,
+        topY: Double
+    )? {
+        guard let screen = NSScreen.main else {
+            print("Could not get main screen")
+            return nil
+        }
+
+        let frame = screen.frame
+        let visible = screen.visibleFrame
+
+        // Dock must be at the bottom
+        guard visible.minY > frame.minY else {
+            // Dock is on the side, autohidden, or not present
+            return nil
+        }
+
+        let centerX = frame.midX
+        let topY = visible.minY
+
+        return (
+            leftX: Double(centerX),
+            rightX: Double(centerX),
+            topY: Double(topY)
+        )
+    }
+}
+
 extension SKView {
     open override func rightMouseDown(with event: NSEvent) {
         super.rightMouseDown(with: event)
@@ -154,8 +251,8 @@ extension AppDelegate : CatPlayfield {
     }
     
     var destination : NSPoint {
-        let mousePosition = NSEvent.mouseLocation
-        return NSPoint(x: mousePosition.x - 32, y: mousePosition.y + 4)
+        let perchPosition = window.topOfActiveWindowOrDockOrBottom // Touch to ensure computed and available if needed later
+        return NSPoint(x: perchPosition.leftX - 32, y: perchPosition.topY)
     }
     
     var catCanMove : Bool {
