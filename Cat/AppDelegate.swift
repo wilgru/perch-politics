@@ -12,8 +12,13 @@ import GameplayKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    let flockContext = FlockContext()
+    
+    let initialPosition = NSPoint(x: 0, y: 0)
+    let catSpacing: CGFloat = 10
+    
     var catInstances: [CatInstance] = []
-    let catSpacing: CGFloat = 10 // TODO: make constant?
+    var otherTimers: [Timer] = []
     
     @IBOutlet var menu : NSMenu!
     
@@ -53,9 +58,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let rect = NSRect(x: 0, y: 0, width: 64, height: 64)
+        let flockStateMachine = GKStateMachine(states: [FlockState(flockContext: flockContext)])
+        flockStateMachine.enter(FlockState.self)
         
-        for (index, cat) in Cat.allCases.enumerated() {
+        let flockTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
+            flockStateMachine.update(deltaTime: timer.timeInterval)
+        }
+        RunLoop.current.add(flockTimer, forMode: .common)
+        otherTimers.append(flockTimer)
+        
+        let rect = NSRect(x: 0, y: 0, width: 64, height: 64)
+        for cat in Cat.allCases {
             let scene = SKScene(size: rect.size)
             scene.backgroundColor = NSColor.clear
             
@@ -81,20 +94,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
-
-            // Per-cat destination offset so they aim at different x positions near the perch
-            let offsetX = CGFloat(index) * (sprite.size.width + catSpacing)
-            let offset: NSPoint = NSPoint(x: offsetX, y: 0)
             
-            let stateMachine = createStateMachine(sprite: sprite, textures: SKTextureAtlas(named: cat.atlasName), window: window, offset: offset)
+            let catStateMachine = createStateMachine(catIdentity: cat, sprite: sprite, textures: SKTextureAtlas(named: cat.atlasName), window: window)
             
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
-                stateMachine.update(deltaTime: timer.timeInterval)
+            let catTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
+                catStateMachine.update(deltaTime: timer.timeInterval)
             }
-            RunLoop.current.add(timer, forMode: .common)
+            RunLoop.current.add(catTimer, forMode: .common)
             
             // create class instance
-            let catInstance = CatInstance(cat: cat, stateMachine: stateMachine, timer: timer)
+            let catInstance = CatInstance(cat: cat, stateMachine: catStateMachine, timer: catTimer)
             catInstances.append(catInstance)
         }
         
@@ -162,132 +171,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         for catInstance in catInstances {
             catInstance.timer.invalidate()
         }
+        
+        for otherTimer in otherTimers {
+            otherTimer.invalidate()
+        }
     }
     
-    func createStateMachine(sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, offset: NSPoint) -> GKStateMachine {
+    func createStateMachine(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow) -> GKStateMachine {
         let catStates = [
-            CatIsStopped(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures),
-            CatIsLicking(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures),
-            CatIsScratching(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures),
-            CatIsYawning(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures),
-            CatIsSleeping(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures),
-            CatIsAwake(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures),
-            CatIsMoving(sprite: sprite, playfield: playfield(window: window, offset: offset), textures: textures)
+            CatIsStopped(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            CatIsLicking(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            CatIsScratching(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            CatIsYawning(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            CatIsSleeping(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            CatIsAwake(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            CatIsMoving(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         ]
         let stateMachine = GKStateMachine(states: catStates)
         stateMachine.enter(CatIsAwake.self)
-        
+
         return stateMachine
     }
     
-    struct playfield: CatPlayfield {
-        let window: NSWindow
-        let offset: NSPoint
-        
-        var catPosition: NSPoint {
-            get {
-                return window.frame.origin
-            }
-            set {
-                window.setFrameOrigin(newValue)
-            }
-        }
-        var destination: NSPoint {
-            let perchPosition = window.topOfActiveWindowOrDockOrBottom
-            let base = NSPoint(x: perchPosition.leftX - 32, y: perchPosition.topY)
-            
-            return NSPoint(x: base.x + offset.x, y: base.y + offset.y)
-        }
-    }
+//    struct playfield: CatPlayfield {
+//        let window: NSWindow
+//        let offset: NSPoint
+//        
+//        var destination: NSPoint {
+//            let perchPosition = window.topOfActiveWindowOrDockOrBottom
+//            let base = NSPoint(x: perchPosition.leftX - 32, y: perchPosition.topY)
+//            
+//            return NSPoint(x: base.x + offset.x, y: base.y + offset.y)
+//        }
+//    }
     
     @objc func updateStateMachineLegacy(_ timer: Timer) {
         guard let machine = timer.userInfo as? GKStateMachine else { return }
         machine.update(deltaTime: timer.timeInterval)
-    }
-}
-
-extension NSWindow {
-    var topOfActiveWindowOrDockOrBottom: (
-        leftX: Double,
-        rightX: Double,
-        topY: Double
-    ) {
-        return self.activeWindowGeometry ?? self.dockGeometry ?? (32, 0, 0)
-    }
-    
-    var activeWindowGeometry: (
-        leftX: Double,
-        rightX: Double,
-        topY: Double
-    )? {
-        let options = CGWindowListOption.optionOnScreenOnly
-        guard let windowList = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: AnyObject]] else {
-            print("Could not get window list")
-            return nil
-        }
-        
-        guard let screenHeight = NSScreen.main?.frame.height else {
-            print("Could not find main screen")
-            return nil
-        }
-
-        guard let frontAppPID = NSWorkspace.shared.frontmostApplication?.processIdentifier else {
-            print("Could not find front app PID")
-            return nil
-        }
-        
-        for window in windowList {
-            if let windowPID = window[kCGWindowOwnerPID as String] as? Int,
-               let boundsAny = window[kCGWindowBounds as String],
-               let layer = window[kCGWindowLayer as String] as? Int,
-                   windowPID == frontAppPID,
-                   layer == 0 // layer 0 for normal windows
-                {
-                if CFGetTypeID(boundsAny as CFTypeRef) == CFDictionaryGetTypeID() {
-                    guard let bounds = CGRect(dictionaryRepresentation: boundsAny as! CFDictionary) else {
-                        print("Could not convert type of bounds to CFDictionary")
-                        return nil
-                    }
-                    
-                    return (
-                        leftX: Double(bounds.origin.x + 32 + 30), //30 for corner radius
-                        rightX:  Double(bounds.origin.x + bounds.size.width - 32),
-                        topY:  Double(screenHeight - bounds.origin.y)
-                    )
-                }
-            }
-        }
-        print("Could not find a window to get geometry for")
-        return nil
-    }
-    
-    var dockGeometry: (
-        leftX: Double,
-        rightX: Double,
-        topY: Double
-    )? {
-        guard let screen = NSScreen.main else {
-            print("Could not get main screen")
-            return nil
-        }
-
-        let frame = screen.frame
-        let visible = screen.visibleFrame
-
-        // Dock must be at the bottom
-        guard visible.minY > frame.minY else {
-            // Dock is on the side, autohidden, or not present
-            return nil
-        }
-
-        let centerX = frame.midX
-        let topY = visible.minY
-
-        return (
-            leftX: Double(centerX),
-            rightX: Double(centerX),
-            topY: Double(topY)
-        )
     }
 }
 

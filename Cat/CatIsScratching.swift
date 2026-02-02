@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class CatIsScratching : CatState { // kaki
-    override init(sprite: SKSpriteNode, playfield: CatPlayfield, textures: SKTextureAtlas) {
-        super.init(sprite: sprite, playfield: playfield, textures: textures)
+    override init(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+        super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         validNextStates = [ CatIsAwake.self, CatIsYawning.self ]
         nextState = CatIsYawning.self
         action = SKAction.repeatForever(SKAction.animate(with: ["kaki1", "kaki2"].map { self.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))

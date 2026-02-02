@@ -30,16 +30,16 @@ class CatIsMoving : CatState {
         return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { self.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
     
-    override init(sprite: SKSpriteNode, playfield: CatPlayfield, textures: SKTextureAtlas) {
-        super.init(sprite: sprite, playfield: playfield, textures: textures)
+    override init(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+        super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         validNextStates = [ CatIsStopped.self ]
+        
+        print("actualDesitnation.x \(actualDesitnation.x)")
     }
     
     override func didEnter(from previousState: GKState?) {
         time = 0.0
-        let origin = playfield.catPosition
-        let destination = playfield.destination
-        let delta = NSPoint(x: destination.x - origin.x, y: destination.y - origin.y)
+        let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
         direction = CatDirection(vector: delta)
         sprite.removeAllActions()
         sprite.run(movingAction)
@@ -49,23 +49,24 @@ class CatIsMoving : CatState {
         guard let stateMachine = stateMachine else { return }
         time += seconds
         
-        let origin = playfield.catPosition
-        let destination = playfield.destination
-        let delta = NSPoint(x: destination.x - origin.x, y: destination.y - origin.y)
-        let distance = hypot(delta.x, delta.y)
+        let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
         
         if distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
             stateMachine.enter(CatIsStopped.self)
+            flockContext.birdSettledOrder[catIdentity] = flockContext.birdSettledOrder.count
+            
             return
         }
         
         direction = CatDirection(vector: delta)
         
         if distance <= speed {
-            playfield.catPosition = destination
+            position = actualDesitnation
         } else {
-            let newPosition = NSPoint(x: origin.x + speed * delta.x / distance, y: origin.y + speed * delta.y / distance)
-            playfield.catPosition = newPosition
+            let newPosition = NSPoint(x: position.x + speed * delta.x / distance, y: position.y + speed * delta.y / distance)
+            position = newPosition
         }
+        
+        flockContext.birdPositions[catIdentity] = position
     }
 }

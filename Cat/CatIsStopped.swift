@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class CatIsStopped : CatState {
-    override init(sprite: SKSpriteNode, playfield: CatPlayfield, textures: SKTextureAtlas) {
-        super.init(sprite: sprite, playfield: playfield, textures: textures)
+    override init(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+        super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         validNextStates = [ CatIsAwake.self, CatIsLicking.self ]
         nextState = CatIsLicking.self
         action = SKAction.setTexture(self.textures.textureNamed("mati2"))
