@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -11,11 +11,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="Cat" id="1Xt-HY-uBw">
+                            <menuItem title="Perch Politcs" id="1Xt-HY-uBw" userLabel="Perch Politics">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Cat" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Perch Politcs" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About Cat" id="5kV-Vb-QxS">
+                                        <menuItem title="About Perch Politics" id="5kV-Vb-QxS" userLabel="About Perch Politics">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -29,7 +29,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide Cat" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide Perch Politics" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -89,7 +89,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Cat" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Perch_Politics" customModuleProvider="target">
                     <connections>
                         <outlet property="barSkinMenu" destination="hH3-tB-6Qa" id="SnR-EG-JkI"/>
                         <outlet property="dockMenu" destination="hHV-E1-cw8" id="dTR-m3-7XL"/>
@@ -101,7 +101,7 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu title="Context Menu" id="0SE-YZ-5GS">
                     <items>
-                        <menuItem title="About Cat" id="Pf3-0n-k6j">
+                        <menuItem title="About Perch Politics" id="Pf3-0n-k6j" userLabel="About Perch Politics">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="PY7-aB-l4g"/>

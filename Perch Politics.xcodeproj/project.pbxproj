@@ -32,7 +32,7 @@
 		0583BC1E1E5731F90003AE2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0583BC201E5731F90003AE2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05A806981E702B0C002D12FB /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
-		05AF44EB1E6EEF8B006F01AE /* Cat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cat.entitlements; sourceTree = "<group>"; };
+		05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Perch Politics.entitlements"; sourceTree = "<group>"; };
 		FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = Developer.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +71,7 @@
 				0581344A259BBA0E0059E50C /* Developer.xcconfig.template */,
 				FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */,
 				05813449259BBA0E0059E50C /* Default.xcconfig */,
-				0583BC161E5731F90003AE2A /* Cat */,
+				0583BC161E5731F90003AE2A /* Perch Politics */,
 				0583BC151E5731F90003AE2A /* Products */,
 				0550064A1E70672600B9788F /* Frameworks */,
 			);
@@ -85,19 +85,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0583BC161E5731F90003AE2A /* Cat */ = {
+		0583BC161E5731F90003AE2A /* Perch Politics */ = {
 			isa = PBXGroup;
 			children = (
 				FA1E3C022F314A8B00573A23 /* Flock */,
 				FA1E3C032F314A9700573A23 /* Cat */,
 				0583BC171E5731F90003AE2A /* AppDelegate.swift */,
 				0583BC1B1E5731F90003AE2A /* Assets.xcassets */,
-				05AF44EB1E6EEF8B006F01AE /* Cat.entitlements */,
+				05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */,
 				0583BC1D1E5731F90003AE2A /* Main.storyboard */,
 				0583BC201E5731F90003AE2A /* Info.plist */,
 				055006491E7031C800B9788F /* InfoPlist.strings */,
 			);
-			path = Cat;
+			path = "Perch Politics";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +137,6 @@
 				TargetAttributes = {
 					0583BC131E5731F90003AE2A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = CQK6S5J9RG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -335,12 +334,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Cat/Cat.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Perch Politics/Perch Politics.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020.366;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = NM8YX338UY;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = Cat/Info.plist;
+				INFOPLIST_FILE = "Perch Politics/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -355,12 +355,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Cat/Cat.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Perch Politics/Perch Politics.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020.366;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = NM8YX338UY;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = Cat/Info.plist;
+				INFOPLIST_FILE = "Perch Politics/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
