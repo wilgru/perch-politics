@@ -12,7 +12,7 @@ class CatIsAwake : CatState {
     var timeBeforeMoving : TimeInterval = 0.250
     var distanceBeforeMoving : CGFloat = 32.0
     
-    override init(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+    override init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
         super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         validNextStates = [ CatIsMoving.self, CatIsStopped.self ]
         action = SKAction.setTexture(self.textures.textureNamed("awake"))

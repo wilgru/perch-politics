@@ -11,8 +11,8 @@ import GameplayKit
 
 final class FlockContext {
     var destination: NSPoint = .zero
-    var birdPositions: [Cat: NSPoint] = [:]
-    var birdSettledOrder: [Cat: Int] = [:]
+    var birdPositions: [CatIdentity: NSPoint] = [:]
+    var birdSettledOrder: [CatIdentity: Int] = [:]
     
     var cohesionStrength: CGFloat = 1.0
     var separationStrength: CGFloat = 1.0

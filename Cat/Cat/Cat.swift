@@ -10,17 +10,17 @@ import AppKit
 import SpriteKit
 import GameplayKit
 
-final class CatInstance {
-    let cat: Cat
+final class Cat {
+    let catIdentity: CatIdentity
     let stateMachine: GKStateMachine
     let timer: Timer
 
     init(
-        cat: Cat,
+        catIdentity: CatIdentity,
         stateMachine: GKStateMachine,
         timer: Timer
     ) {
-        self.cat = cat
+        self.catIdentity = catIdentity
         self.stateMachine = stateMachine
         self.timer = timer
     }

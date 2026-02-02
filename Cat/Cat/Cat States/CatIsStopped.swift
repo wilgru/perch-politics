@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class CatIsStopped : CatState {
-    override init(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+    override init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
         super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         validNextStates = [ CatIsAwake.self, CatIsLicking.self ]
         nextState = CatIsLicking.self

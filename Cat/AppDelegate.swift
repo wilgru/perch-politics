@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let initialPosition = NSPoint(x: 0, y: 0)
     let catSpacing: CGFloat = 10
     
-    var catInstances: [CatInstance] = []
+    var catInstances: [Cat] = []
     var otherTimers: [Timer] = []
     
     @IBOutlet var menu : NSMenu!
@@ -62,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return dockMenu
     }
     
-    func createStateMachine(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow) -> GKStateMachine {
+    func createStateMachine(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow) -> GKStateMachine {
         let catStates = [
             CatIsStopped(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
             CatIsLicking(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
@@ -89,11 +89,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         otherTimers.append(flockTimer)
         
         let rect = NSRect(x: 0, y: 0, width: 64, height: 64)
-        for cat in Cat.allCases {
+        for catIdentity in CatIdentity.allCases {
             let scene = SKScene(size: rect.size)
             scene.backgroundColor = NSColor.clear
             
-            let sprite = SKSpriteNode(texture: SKTextureAtlas(named: cat.atlasName).textureNamed("awake"))
+            let sprite = SKSpriteNode(texture: SKTextureAtlas(named: catIdentity.atlasName).textureNamed("awake"))
             sprite.anchorPoint = NSPoint.zero
             
             scene.addChild(sprite)
@@ -116,7 +116,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
             
-            let catStateMachine = createStateMachine(catIdentity: cat, sprite: sprite, textures: SKTextureAtlas(named: cat.atlasName), window: window)
+            let catStateMachine = createStateMachine(catIdentity: catIdentity, sprite: sprite, textures: SKTextureAtlas(named: catIdentity.atlasName), window: window)
             
             let catTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
                 catStateMachine.update(deltaTime: timer.timeInterval)
@@ -124,7 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             RunLoop.current.add(catTimer, forMode: .common)
             
             // create class instance
-            let catInstance = CatInstance(cat: cat, stateMachine: catStateMachine, timer: catTimer)
+            let catInstance = Cat(catIdentity: catIdentity, stateMachine: catStateMachine, timer: catTimer)
             catInstances.append(catInstance)
         }
     }

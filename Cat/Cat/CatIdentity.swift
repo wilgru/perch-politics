@@ -6,7 +6,7 @@
 //  Copyright © 2026 Matusalem Marques. All rights reserved.
 //
 
-enum Cat: String, CaseIterable {
+enum CatIdentity: String, CaseIterable {
     case cat1 = "Cat 1"
     case cat2 = "Cat 2"
 

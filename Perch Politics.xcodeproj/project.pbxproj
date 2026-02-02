@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,20 +15,6 @@
 		0583BC181E5731F90003AE2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583BC171E5731F90003AE2A /* AppDelegate.swift */; };
 		0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1B1E5731F90003AE2A /* Assets.xcassets */; };
 		0583BC1F1E5731F90003AE2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1D1E5731F90003AE2A /* Main.storyboard */; };
-		0583BC291E5749D90003AE2A /* CatState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583BC281E5749D90003AE2A /* CatState.swift */; };
-		059234421E66263100C8A1DB /* CatIsMoving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234411E66263100C8A1DB /* CatIsMoving.swift */; };
-		059234441E66267700C8A1DB /* CatIsAwake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234431E66267700C8A1DB /* CatIsAwake.swift */; };
-		059234461E6626BF00C8A1DB /* CatIsStopped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234451E6626BF00C8A1DB /* CatIsStopped.swift */; };
-		059234481E6626EE00C8A1DB /* CatIsLicking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234471E6626EE00C8A1DB /* CatIsLicking.swift */; };
-		0592344A1E66271900C8A1DB /* CatIsScratching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234491E66271900C8A1DB /* CatIsScratching.swift */; };
-		0592344C1E66274400C8A1DB /* CatIsYawning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0592344B1E66274400C8A1DB /* CatIsYawning.swift */; };
-		0592344E1E66276C00C8A1DB /* CatIsSleeping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0592344D1E66276C00C8A1DB /* CatIsSleeping.swift */; };
-		059234511E66297100C8A1DB /* CatDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234501E66297100C8A1DB /* CatDirection.swift */; };
-		059234531E66357E00C8A1DB /* CatIsClawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059234521E66357E00C8A1DB /* CatIsClawing.swift */; };
-		FA6F8C8F2F2F3D5100FFF6AB /* CatInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F8C8E2F2F3D5100FFF6AB /* CatInstance.swift */; };
-		FA6F8C912F2F400900FFF6AB /* CatIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F8C902F2F400900FFF6AB /* CatIdentity.swift */; };
-		FA73C6942F2FF88800A36BFD /* FlockState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73C6932F2FF87D00A36BFD /* FlockState.swift */; };
-		FA73C6982F3008C800A36BFD /* FlockContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73C6972F3008C800A36BFD /* FlockContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,24 +31,15 @@
 		0583BC1B1E5731F90003AE2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0583BC1E1E5731F90003AE2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0583BC201E5731F90003AE2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0583BC281E5749D90003AE2A /* CatState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatState.swift; sourceTree = "<group>"; };
-		059234411E66263100C8A1DB /* CatIsMoving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsMoving.swift; sourceTree = "<group>"; };
-		059234431E66267700C8A1DB /* CatIsAwake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsAwake.swift; sourceTree = "<group>"; };
-		059234451E6626BF00C8A1DB /* CatIsStopped.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsStopped.swift; sourceTree = "<group>"; };
-		059234471E6626EE00C8A1DB /* CatIsLicking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsLicking.swift; sourceTree = "<group>"; };
-		059234491E66271900C8A1DB /* CatIsScratching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsScratching.swift; sourceTree = "<group>"; };
-		0592344B1E66274400C8A1DB /* CatIsYawning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsYawning.swift; sourceTree = "<group>"; };
-		0592344D1E66276C00C8A1DB /* CatIsSleeping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsSleeping.swift; sourceTree = "<group>"; };
-		059234501E66297100C8A1DB /* CatDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDirection.swift; sourceTree = "<group>"; };
-		059234521E66357E00C8A1DB /* CatIsClawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatIsClawing.swift; sourceTree = "<group>"; };
 		05A806981E702B0C002D12FB /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		05AF44EB1E6EEF8B006F01AE /* Cat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cat.entitlements; sourceTree = "<group>"; };
 		FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = Developer.xcconfig; sourceTree = "<group>"; };
-		FA6F8C8E2F2F3D5100FFF6AB /* CatInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatInstance.swift; sourceTree = "<group>"; };
-		FA6F8C902F2F400900FFF6AB /* CatIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatIdentity.swift; sourceTree = "<group>"; };
-		FA73C6932F2FF87D00A36BFD /* FlockState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlockState.swift; sourceTree = "<group>"; };
-		FA73C6972F3008C800A36BFD /* FlockContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlockContext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FA1E3C022F314A8B00573A23 /* Flock */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flock; sourceTree = "<group>"; };
+		FA1E3C032F314A9700573A23 /* Cat */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Cat; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0583BC111E5731F90003AE2A /* Frameworks */ = {
@@ -111,14 +88,9 @@
 		0583BC161E5731F90003AE2A /* Cat */ = {
 			isa = PBXGroup;
 			children = (
-				FA73C6972F3008C800A36BFD /* FlockContext.swift */,
-				FA73C6932F2FF87D00A36BFD /* FlockState.swift */,
-				FA6F8C902F2F400900FFF6AB /* CatIdentity.swift */,
-				FA6F8C8E2F2F3D5100FFF6AB /* CatInstance.swift */,
-				0592344F1E6627A600C8A1DB /* Cat States */,
+				FA1E3C022F314A8B00573A23 /* Flock */,
+				FA1E3C032F314A9700573A23 /* Cat */,
 				0583BC171E5731F90003AE2A /* AppDelegate.swift */,
-				0583BC281E5749D90003AE2A /* CatState.swift */,
-				059234501E66297100C8A1DB /* CatDirection.swift */,
 				0583BC1B1E5731F90003AE2A /* Assets.xcassets */,
 				05AF44EB1E6EEF8B006F01AE /* Cat.entitlements */,
 				0583BC1D1E5731F90003AE2A /* Main.storyboard */,
@@ -126,21 +98,6 @@
 				055006491E7031C800B9788F /* InfoPlist.strings */,
 			);
 			path = Cat;
-			sourceTree = "<group>";
-		};
-		0592344F1E6627A600C8A1DB /* Cat States */ = {
-			isa = PBXGroup;
-			children = (
-				0592344D1E66276C00C8A1DB /* CatIsSleeping.swift */,
-				0592344B1E66274400C8A1DB /* CatIsYawning.swift */,
-				059234491E66271900C8A1DB /* CatIsScratching.swift */,
-				059234471E6626EE00C8A1DB /* CatIsLicking.swift */,
-				059234451E6626BF00C8A1DB /* CatIsStopped.swift */,
-				059234431E66267700C8A1DB /* CatIsAwake.swift */,
-				059234411E66263100C8A1DB /* CatIsMoving.swift */,
-				059234521E66357E00C8A1DB /* CatIsClawing.swift */,
-			);
-			name = "Cat States";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +114,10 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FA1E3C022F314A8B00573A23 /* Flock */,
+				FA1E3C032F314A9700573A23 /* Cat */,
 			);
 			name = "Perch Politics";
 			productName = Cat;
@@ -225,21 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				059234441E66267700C8A1DB /* CatIsAwake.swift in Sources */,
-				FA73C6982F3008C800A36BFD /* FlockContext.swift in Sources */,
-				FA6F8C8F2F2F3D5100FFF6AB /* CatInstance.swift in Sources */,
-				059234511E66297100C8A1DB /* CatDirection.swift in Sources */,
-				0592344E1E66276C00C8A1DB /* CatIsSleeping.swift in Sources */,
-				059234421E66263100C8A1DB /* CatIsMoving.swift in Sources */,
-				FA73C6942F2FF88800A36BFD /* FlockState.swift in Sources */,
-				0592344A1E66271900C8A1DB /* CatIsScratching.swift in Sources */,
-				059234461E6626BF00C8A1DB /* CatIsStopped.swift in Sources */,
-				0583BC291E5749D90003AE2A /* CatState.swift in Sources */,
-				FA6F8C912F2F400900FFF6AB /* CatIdentity.swift in Sources */,
 				0583BC181E5731F90003AE2A /* AppDelegate.swift in Sources */,
-				059234481E6626EE00C8A1DB /* CatIsLicking.swift in Sources */,
-				059234531E66357E00C8A1DB /* CatIsClawing.swift in Sources */,
-				0592344C1E66274400C8A1DB /* CatIsYawning.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

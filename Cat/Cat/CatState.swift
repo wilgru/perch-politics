@@ -11,7 +11,7 @@ import GameplayKit
 class CatState : GKState {
     unowned let flockContext: FlockContext  // unowned to avoid retain cycles
 
-    var catIdentity: Cat
+    var catIdentity: CatIdentity
     var sprite : SKSpriteNode
     var textures: SKTextureAtlas
     var window: NSWindow
@@ -45,7 +45,7 @@ class CatState : GKState {
     
     var action : SKAction! = nil
     
-    init(catIdentity: Cat, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+    init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
         self.catIdentity = catIdentity
         self.sprite = sprite
         self.textures = textures
