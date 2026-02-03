@@ -7,17 +7,17 @@
 //
 
 enum CatIdentity: String, CaseIterable {
-    case cat1 = "Cat 1"
-    case cat2 = "Cat 2"
-    case cat3 = "Cat 3"
-    case cat4 = "Cat 4"
+    case kyra = "Kyra"
+    case greenBub = "Green Bub"
+    case fatFeet = "Fat Feet"
+    case peg = "Peg"
 
     var atlasName: String {
         switch self {
-        case .cat1: return "Black Cat"
-        case .cat2: return "White Cat"
-        case .cat3: return "White Cat"
-        case .cat4: return "Black Cat"
+        case .kyra: return "Black Cat"
+        case .greenBub: return "White Cat"
+        case .fatFeet: return "White Cat"
+        case .peg: return "Black Cat"
         }
     }
 
