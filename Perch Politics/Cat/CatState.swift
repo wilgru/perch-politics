@@ -34,6 +34,7 @@ class CatState : GKState {
             return hypot(actualDesitnation.x - position.x, actualDesitnation.y - position.y)
         }
     }
+    var velocity: NSPoint = NSPoint(x: 1, y: 1)
     
     var time : TimeInterval = 0.0
     var timePerFrame : TimeInterval = 0.125

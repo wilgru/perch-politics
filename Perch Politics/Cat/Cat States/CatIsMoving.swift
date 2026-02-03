@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class CatIsMoving : CatState {
-    var speed : CGFloat = 30.0
+    var speed : CGFloat = 16.0
     
     var frames : [CatDirection:[String]] = [
         .left : ["left1","left2"],
@@ -33,14 +33,14 @@ class CatIsMoving : CatState {
     override init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
         super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         validNextStates = [ CatIsStopped.self ]
-        
-        print("actualDesitnation.x \(actualDesitnation.x)")
     }
     
     override func didEnter(from previousState: GKState?) {
         time = 0.0
+        
         let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
         direction = CatDirection(vector: delta)
+        
         sprite.removeAllActions()
         sprite.run(movingAction)
     }
@@ -48,8 +48,6 @@ class CatIsMoving : CatState {
     override func update(deltaTime seconds: TimeInterval) {
         guard let stateMachine = stateMachine else { return }
         time += seconds
-        
-        let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
         
         if distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
             stateMachine.enter(CatIsStopped.self)
@@ -61,11 +59,19 @@ class CatIsMoving : CatState {
         let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
         direction = CatDirection(vector: delta)
         
-        if distance <= speed {
+        if distance <= 20 { // TODO: use const for this value?
             position = actualDesitnation
+//            velocity = .zero // keeping the last set velocity make for interesting movement next time they move
         } else {
-            let newPosition = NSPoint(x: position.x + speed * delta.x / distance, y: position.y + speed * delta.y / distance)
-            position = newPosition
+            let cohesion = flockContext.cohesionVelocity(for: catIdentity)
+            let separation = flockContext.separationVelocity(for: catIdentity)
+            
+            velocity = NSPoint(
+                x: (velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / distance),
+                y: (velocity.y * 0.80) + cohesion.y + separation.y + (speed * delta.y / distance)
+            )
+            
+            position = NSPoint(x: position.x + velocity.x, y: position.y + velocity.y)
         }
         
         flockContext.birdPositions[catIdentity] = position

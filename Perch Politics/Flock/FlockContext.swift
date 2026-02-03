@@ -14,16 +14,45 @@ final class FlockContext {
     var birdPositions: [CatIdentity: NSPoint] = [:]
     var birdSettledOrder: [CatIdentity: Int] = [:]
     
-    var cohesionStrength: CGFloat = 1.0
-    var separationStrength: CGFloat = 1.0
-    var alignmentStrength: CGFloat = 1.0
+    var cohesionStrength: CGFloat = 0.01
+    var separationStrength: CGFloat = 2
     
-    var velocity: CGVector = .zero
-    var center: NSPoint {
-        let positions = self.birdPositions.map { $0.value }
-        return positions.reduce(NSPoint.zero) { partialResult, point in
-            NSPoint(x: partialResult.x + point.x, y: partialResult.y + point.y)
+    // Returns a velocity adjustment vector steering toward the center of mass of local flockmates (cohesion)
+    func cohesionVelocity(for givenCat: CatIdentity) -> NSPoint {
+        // Exclude the current bird
+        let otherBirds = birdPositions.filter { $0.key != givenCat }
+        guard !otherBirds.isEmpty, let givenCatPosition = birdPositions[givenCat] else { return .zero }
+        
+        // Calculate center of mass
+        let birdPositionsSum = otherBirds.reduce(NSPoint.zero) { sum, birdPosition in
+            NSPoint(x: sum.x + birdPosition.value.x, y: sum.y + birdPosition.value.y)
         }
+        let count = CGFloat(otherBirds.count)
+        let centerPoint = NSPoint(x: birdPositionsSum.x / count, y: birdPositionsSum.y / count)
+        
+        // Steer towards the center
+        let steer = NSPoint(x: (centerPoint.x - givenCatPosition.x) * cohesionStrength, y: (centerPoint.y - givenCatPosition.y) * cohesionStrength)
+        return steer
+    }
+
+    // Returns a velocity adjustment vector steering away from close flockmates (separation)
+    func separationVelocity(for givenCat: CatIdentity) -> NSPoint {
+        guard let givenCatPosition = birdPositions[givenCat] else { return .zero }
+        
+        var repulsion = NSPoint.zero
+        for (otherCat, otherCatPos) in birdPositions where otherCat != givenCat {
+            let distanceX = givenCatPosition.x - otherCatPos.x
+            let distanceY = givenCatPosition.y - otherCatPos.y
+            let distanceSquared = distanceX * distanceX + distanceY * distanceY
+            
+            if distanceSquared > 0 {
+                // The closer they are, the stronger the repulsion
+                repulsion.x += distanceX / distanceSquared
+                repulsion.y += distanceY / distanceSquared
+            }
+        }
+        
+        return NSPoint(x: repulsion.x * separationStrength, y: repulsion.y * separationStrength)
     }
     
     var activeWindowGeometry: (
