@@ -1,6 +1,6 @@
 //
-//  CatIsAwake.swift
-//  Cat
+//  BirdIsAwake.swift
+//  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/28.
 //
@@ -8,13 +8,13 @@
 import SpriteKit
 import GameplayKit
 
-class CatIsAwake : CatState {
+class BirdIsAwake : BirdState {
     var timeBeforeMoving : TimeInterval = 0.250
     var distanceBeforeMoving : CGFloat = 32.0
     
-    override init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
-        validNextStates = [ CatIsMoving.self, CatIsStopped.self ]
+    override init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+        super.init(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+        validNextStates = [ BirdIsMoving.self, BirdIsStopped.self ]
         action = SKAction.setTexture(self.textures.textureNamed("awake"))
     }
     
@@ -23,9 +23,9 @@ class CatIsAwake : CatState {
         time += seconds
         
         if distance >= distanceBeforeMoving && time >= timeBeforeMoving {
-            stateMachine.enter(CatIsMoving.self)
+            stateMachine.enter(BirdIsMoving.self)
         } else if time >= timeBeforeNextState {
-            stateMachine.enter(CatIsStopped.self)
+            stateMachine.enter(BirdIsStopped.self)
         }
     }
 }

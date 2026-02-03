@@ -1,6 +1,6 @@
 //
-//  CatIsMoving.swift
-//  Cat
+//  BirdIsMoving.swift
+//  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/28.
 //
@@ -8,15 +8,15 @@
 import SpriteKit
 import GameplayKit
 
-class CatIsMoving : CatState {
+class BirdIsMoving : BirdState {
     var speed : CGFloat = 16.0
     
-    var frames : [CatDirection:[String]] = [
+    var frames : [BirdDirection:[String]] = [
         .left : ["left1","left2"],
         .right : ["right1","right2"],
     ]
     
-    var direction : CatDirection = .left {
+    var direction : BirdDirection = .left {
         didSet {
             guard direction != oldValue else { return }
             
@@ -30,16 +30,16 @@ class CatIsMoving : CatState {
         return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { self.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
     
-    override init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        super.init(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
-        validNextStates = [ CatIsStopped.self ]
+    override init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+        super.init(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+        validNextStates = [ BirdIsStopped.self ]
     }
     
     override func didEnter(from previousState: GKState?) {
         time = 0.0
         
         let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
-        direction = CatDirection(vector: delta)
+        direction = BirdDirection(vector: delta)
         
         sprite.removeAllActions()
         sprite.run(movingAction)
@@ -50,21 +50,21 @@ class CatIsMoving : CatState {
         time += seconds
         
         if distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
-            stateMachine.enter(CatIsStopped.self)
-            flockContext.birdSettledOrder[catIdentity] = flockContext.birdSettledOrder.count
+            stateMachine.enter(BirdIsStopped.self)
+            flockContext.birdSettledOrder[birdIdentity] = flockContext.birdSettledOrder.count
             
             return
         }
         
         let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
-        direction = CatDirection(vector: delta)
+        direction = BirdDirection(vector: delta)
         
         if distance <= 20 { // TODO: use const for this value?
             position = actualDesitnation
 //            velocity = .zero // keeping the last set velocity make for interesting movement next time they move
         } else {
-            let cohesion = flockContext.cohesionVelocity(for: catIdentity)
-            let separation = flockContext.separationVelocity(for: catIdentity)
+            let cohesion = flockContext.cohesionVelocity(for: birdIdentity)
+            let separation = flockContext.separationVelocity(for: birdIdentity)
             
             velocity = NSPoint(
                 x: (velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / distance),
@@ -74,6 +74,6 @@ class CatIsMoving : CatState {
             position = NSPoint(x: position.x + velocity.x, y: position.y + velocity.y)
         }
         
-        flockContext.birdPositions[catIdentity] = position
+        flockContext.birdPositions[birdIdentity] = position
     }
 }

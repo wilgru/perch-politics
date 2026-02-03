@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Cat
+//  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/17.
 //
@@ -14,10 +14,7 @@ import GameplayKit
 class AppDelegate: NSObject, NSApplicationDelegate {
     let flockContext = FlockContext()
     
-    let initialPosition = NSPoint(x: 0, y: 0)
-    let catSpacing: CGFloat = 10
-    
-    var catInstances: [Cat] = []
+    var birdInstances: [Bird] = []
     var otherTimers: [Timer] = []
     
     @IBOutlet var menu : NSMenu!
@@ -49,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func setSkin(_ sender: NSMenuItem) {
-        // Skin selection disabled: using hardcoded per-cat skins
+        // Skin selection disabled: using hardcoded per-bird skins
         return
     }
     
@@ -62,18 +59,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return dockMenu
     }
     
-    func createStateMachine(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow) -> GKStateMachine {
-        let catStates = [
-            CatIsStopped(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            CatIsLicking(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            CatIsScratching(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            CatIsYawning(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            CatIsSleeping(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            CatIsAwake(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            CatIsMoving(catIdentity: catIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+    func createStateMachine(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow) -> GKStateMachine {
+        let birdStates = [
+            BirdIsStopped(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            BirdIsLicking(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            BirdIsScratching(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            BirdIsYawning(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            BirdIsSleeping(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            BirdIsAwake(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
+            BirdIsMoving(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
         ]
-        let stateMachine = GKStateMachine(states: catStates)
-        stateMachine.enter(CatIsAwake.self)
+        let stateMachine = GKStateMachine(states: birdStates)
+        stateMachine.enter(BirdIsAwake.self)
 
         return stateMachine
     }
@@ -89,11 +86,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         otherTimers.append(flockTimer)
         
         let rect = NSRect(x: 0, y: 0, width: 64, height: 64)
-        for catIdentity in CatIdentity.allCases {
+        for birdIdentity in BirdIdentity.allCases {
             let scene = SKScene(size: rect.size)
             scene.backgroundColor = NSColor.clear
             
-            let sprite = SKSpriteNode(texture: SKTextureAtlas(named: catIdentity.atlasName).textureNamed("awake"))
+            let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("awake"))
             sprite.anchorPoint = NSPoint.zero
             
             scene.addChild(sprite)
@@ -116,22 +113,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
             
-            let catStateMachine = createStateMachine(catIdentity: catIdentity, sprite: sprite, textures: SKTextureAtlas(named: catIdentity.atlasName), window: window)
+            let birdStateMachine = createStateMachine(birdIdentity: birdIdentity, sprite: sprite, textures: SKTextureAtlas(named: birdIdentity.atlasName), window: window)
             
-            let catTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
-                catStateMachine.update(deltaTime: timer.timeInterval)
+            let birdTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
+                birdStateMachine.update(deltaTime: timer.timeInterval)
             }
-            RunLoop.current.add(catTimer, forMode: .common)
+            RunLoop.current.add(birdTimer, forMode: .common)
             
             // create class instance
-            let catInstance = Cat(catIdentity: catIdentity, stateMachine: catStateMachine, timer: catTimer)
-            catInstances.append(catInstance)
+            let birdInstance = Bird(birdIdentity: birdIdentity, stateMachine: birdStateMachine, timer: birdTimer)
+            birdInstances.append(birdInstance)
         }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        for catInstance in catInstances {
-            catInstance.timer.invalidate()
+        for birdInstance in birdInstances {
+            birdInstance.timer.invalidate()
         }
         
         for otherTimer in otherTimers {

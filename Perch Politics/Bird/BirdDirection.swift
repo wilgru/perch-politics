@@ -1,13 +1,13 @@
 //
-//  CatDirection.swift
-//  Cat
+//  BirdDirection.swift
+//  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/28.
 //
 
 import Foundation
 
-enum CatDirection : Int {
+enum BirdDirection : Int {
     case left
     case right
     
@@ -22,7 +22,7 @@ enum CatDirection : Int {
         }
     }
     
-    static func squared(vector: NSPoint) -> CatDirection {
+    static func squared(vector: NSPoint) -> BirdDirection {
         let angle = Double(atan2(vector.y, vector.x))
         
         switch(angle) {

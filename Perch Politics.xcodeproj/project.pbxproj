@@ -38,7 +38,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FA1E3C022F314A8B00573A23 /* Flock */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flock; sourceTree = "<group>"; };
-		FA1E3C032F314A9700573A23 /* Cat */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Cat; sourceTree = "<group>"; };
+		FA1E3C032F314A9700573A23 /* Bird */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Bird; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				FA1E3C022F314A8B00573A23 /* Flock */,
-				FA1E3C032F314A9700573A23 /* Cat */,
+				FA1E3C032F314A9700573A23 /* Bird */,
 				0583BC171E5731F90003AE2A /* AppDelegate.swift */,
 				0583BC1B1E5731F90003AE2A /* Assets.xcassets */,
 				05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */,
@@ -117,7 +117,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				FA1E3C022F314A8B00573A23 /* Flock */,
-				FA1E3C032F314A9700573A23 /* Cat */,
+				FA1E3C032F314A9700573A23 /* Bird */,
 			);
 			name = "Perch Politics";
 			productName = Cat;

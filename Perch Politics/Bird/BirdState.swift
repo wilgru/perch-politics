@@ -1,6 +1,6 @@
 //
-//  CatState.swift
-//  Cat
+//  BirdState.swift
+//  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/17.
 //
@@ -8,13 +8,14 @@
 import SpriteKit
 import GameplayKit
 
-class CatState : GKState {
+class BirdState : GKState {
     unowned let flockContext: FlockContext  // unowned to avoid retain cycles
 
-    var catIdentity: CatIdentity
-    var sprite : SKSpriteNode
+    var birdIdentity: BirdIdentity
+    var sprite: SKSpriteNode
     var textures: SKTextureAtlas
     var window: NSWindow
+    var velocity: NSPoint = NSPoint(x: 1, y: 1)
     var position: NSPoint {
         get {
             return window.frame.origin
@@ -25,8 +26,8 @@ class CatState : GKState {
     }
     var actualDesitnation: NSPoint {
         get {
-            let order = flockContext.birdSettledOrder[catIdentity] ?? flockContext.birdSettledOrder.count
-            return NSPoint(x: flockContext.destination.x + CGFloat(order * 64), y: flockContext.destination.y)
+            let order = flockContext.birdSettledOrder[birdIdentity] ?? flockContext.birdSettledOrder.count
+            return NSPoint(x: flockContext.destination.x + CGFloat(order * 64), y: flockContext.destination.y) // TODO: use const for 64?
         }
     }
     var distance: CGFloat {
@@ -34,20 +35,19 @@ class CatState : GKState {
             return hypot(actualDesitnation.x - position.x, actualDesitnation.y - position.y)
         }
     }
-    var velocity: NSPoint = NSPoint(x: 1, y: 1)
     
-    var time : TimeInterval = 0.0
-    var timePerFrame : TimeInterval = 0.125
-    var timeBeforeNextState : TimeInterval = 2.0
-    var distanceBeforeWakingUp : CGFloat = 32.0
+    var time: TimeInterval = 0.0
+    var timePerFrame: TimeInterval = 0.125
+    var timeBeforeNextState: TimeInterval = 2.0
+    var distanceBeforeWakingUp: CGFloat = 32.0
 
     var validNextStates = [AnyClass]()
-    var nextState : AnyClass?
+    var nextState: AnyClass?
     
     var action : SKAction! = nil
     
-    init(catIdentity: CatIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        self.catIdentity = catIdentity
+    init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
+        self.birdIdentity = birdIdentity
         self.sprite = sprite
         self.textures = textures
         self.window = window
@@ -67,7 +67,7 @@ class CatState : GKState {
         if distance < distanceBeforeWakingUp {
             position = actualDesitnation
         } else if distance > distanceBeforeWakingUp {
-            stateMachine.enter(CatIsAwake.self)
+            stateMachine.enter(BirdIsAwake.self)
         } else if let nextState = nextState, time >= timeBeforeNextState {
             stateMachine.enter(nextState.self)
         }

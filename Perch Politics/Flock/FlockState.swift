@@ -22,7 +22,7 @@ final class FlockState: GKState {
         let perchPosition = flockContext.activeWindowGeometry ?? flockContext.dockGeometry ?? (32, 0, 0)
         let distance = hypot(perchPosition.leftX - 32 - flockContext.destination.x, perchPosition.topY - flockContext.destination.y)
         
-        if (distance >= 32) { // TODO: set this as a const and use in the cat states too
+        if (distance >= 32) { // TODO: set this as a const and use in the bird states too
             flockContext.birdSettledOrder = [:]
         }
         

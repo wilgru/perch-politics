@@ -11,17 +11,17 @@ import GameplayKit
 
 final class FlockContext {
     var destination: NSPoint = .zero
-    var birdPositions: [CatIdentity: NSPoint] = [:]
-    var birdSettledOrder: [CatIdentity: Int] = [:]
+    var birdPositions: [BirdIdentity: NSPoint] = [:]
+    var birdSettledOrder: [BirdIdentity: Int] = [:]
     
     var cohesionStrength: CGFloat = 0.01
     var separationStrength: CGFloat = 2
     
     // Returns a velocity adjustment vector steering toward the center of mass of local flockmates (cohesion)
-    func cohesionVelocity(for givenCat: CatIdentity) -> NSPoint {
+    func cohesionVelocity(for givenBird: BirdIdentity) -> NSPoint {
         // Exclude the current bird
-        let otherBirds = birdPositions.filter { $0.key != givenCat }
-        guard !otherBirds.isEmpty, let givenCatPosition = birdPositions[givenCat] else { return .zero }
+        let otherBirds = birdPositions.filter { $0.key != givenBird }
+        guard !otherBirds.isEmpty, let givenBirdPosition = birdPositions[givenBird] else { return .zero }
         
         // Calculate center of mass
         let birdPositionsSum = otherBirds.reduce(NSPoint.zero) { sum, birdPosition in
@@ -31,18 +31,18 @@ final class FlockContext {
         let centerPoint = NSPoint(x: birdPositionsSum.x / count, y: birdPositionsSum.y / count)
         
         // Steer towards the center
-        let steer = NSPoint(x: (centerPoint.x - givenCatPosition.x) * cohesionStrength, y: (centerPoint.y - givenCatPosition.y) * cohesionStrength)
+        let steer = NSPoint(x: (centerPoint.x - givenBirdPosition.x) * cohesionStrength, y: (centerPoint.y - givenBirdPosition.y) * cohesionStrength)
         return steer
     }
 
     // Returns a velocity adjustment vector steering away from close flockmates (separation)
-    func separationVelocity(for givenCat: CatIdentity) -> NSPoint {
-        guard let givenCatPosition = birdPositions[givenCat] else { return .zero }
+    func separationVelocity(for givenBird: BirdIdentity) -> NSPoint {
+        guard let givenBirdPosition = birdPositions[givenBird] else { return .zero }
         
         var repulsion = NSPoint.zero
-        for (otherCat, otherCatPos) in birdPositions where otherCat != givenCat {
-            let distanceX = givenCatPosition.x - otherCatPos.x
-            let distanceY = givenCatPosition.y - otherCatPos.y
+        for (otherBird, otherBirdPostion) in birdPositions where otherBird != givenBird {
+            let distanceX = givenBirdPosition.x - otherBirdPostion.x
+            let distanceY = givenBirdPosition.y - otherBirdPostion.y
             let distanceSquared = distanceX * distanceX + distanceY * distanceY
             
             if distanceSquared > 0 {
