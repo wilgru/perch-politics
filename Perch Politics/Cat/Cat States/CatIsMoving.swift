@@ -58,6 +58,7 @@ class CatIsMoving : CatState {
             return
         }
         
+        let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
         direction = CatDirection(vector: delta)
         
         if distance <= speed {

@@ -104,7 +104,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             spriteView.menu = menu
 
             let window = NSWindow(contentRect: rect, styleMask: .borderless, backing: .buffered, defer: false)
-            window.backgroundColor = NSColor.white // TODO: change back to .clear
+            window.backgroundColor = NSColor.clear
             window.hasShadow = false  // Shadow is not updated when sprite changes
             window.isMovableByWindowBackground = true
             window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow))) // Over all windows and menu bar, but under the screen saver
