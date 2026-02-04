@@ -55,7 +55,7 @@ final class FlockContext {
         return NSPoint(x: repulsion.x * separationStrength, y: repulsion.y * separationStrength)
     }
     
-    var activeWindowGeometry: (
+    var activeWindowGeometry: ( // TODO: just retrun NSPoint
         leftX: Double,
         rightX: Double,
         topY: Double
@@ -97,11 +97,11 @@ final class FlockContext {
                 }
             }
         }
-        print("Could not find a window to get geometry for")
+//        print("Could not find a window to get geometry for")
         return nil
     }
     
-    var dockGeometry: (
+    var dockGeometry: ( // TODO: just retrun NSPoint
         leftX: Double,
         rightX: Double,
         topY: Double

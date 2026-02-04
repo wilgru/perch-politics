@@ -55,26 +55,26 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Cats" id="8E6-gd-Suv">
+                            <menuItem title="Chickens" id="8E6-gd-Suv">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Cats" id="hH3-tB-6Qa">
+                                <menu key="submenu" title="Chickens" id="hH3-tB-6Qa">
                                     <items>
-                                        <menuItem title="White Cat" image="White Cat Small" id="SeG-qu-fiO">
+                                        <menuItem title="Kyra" image="White Cat Small" id="SeG-qu-fiO">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="White Cat"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="setSkin:" target="Voe-Tx-rLC" id="RxA-Nh-P2R"/>
+                                                <action selector="toggleBird:" target="Voe-Tx-rLC" id="N1v-qG-o6J"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Black Cat" image="Black Cat Small" id="v0m-7O-Rh6">
+                                        <menuItem title="Green Bub" image="Black Cat Small" id="v0m-7O-Rh6">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Black Cat"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="setSkin:" target="Voe-Tx-rLC" id="D4X-5W-0Vr"/>
+                                                <action selector="toggleBird:" target="Voe-Tx-rLC" id="sxp-8d-PZQ"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -107,26 +107,26 @@
                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="PY7-aB-l4g"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Cats" id="NY8-P3-MeQ">
+                        <menuItem title="Chickens" id="NY8-P3-MeQ">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Cats" id="up7-pO-HZt">
+                            <menu key="submenu" title="Chickens" id="up7-pO-HZt">
                                 <items>
-                                    <menuItem title="White Cat" image="White Cat Small" id="B55-0y-mu7">
+                                    <menuItem title="Kyra" image="White Cat Small" id="B55-0y-mu7">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="White Cat"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="setSkin:" target="Voe-Tx-rLC" id="QWr-NJ-qcz"/>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="PvV-ye-LWo"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Black Cat" image="Black Cat Small" id="dCy-57-Agv">
+                                    <menuItem title="Green Bub" image="Black Cat Small" id="dCy-57-Agv">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Black Cat"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="setSkin:" target="Voe-Tx-rLC" id="Pis-Vv-hIs"/>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="pMR-QG-s11"/>
                                         </connections>
                                     </menuItem>
                                 </items>
@@ -143,26 +143,26 @@
                 </menu>
                 <menu title="Context Menu" id="hHV-E1-cw8">
                     <items>
-                        <menuItem title="Cats" id="Lan-bk-S9h">
+                        <menuItem title="Chickens" id="Lan-bk-S9h">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Cats" id="t8L-uo-KUZ">
+                            <menu key="submenu" title="Chickens" id="t8L-uo-KUZ">
                                 <items>
-                                    <menuItem title="White Cat" image="White Cat Small" id="cOd-i7-KI6">
+                                    <menuItem title="Kyra" image="White Cat Small" id="cOd-i7-KI6">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="White Cat"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="setSkin:" target="Voe-Tx-rLC" id="lkd-AG-fJh"/>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="AiT-Ko-z7K"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Black Cat" image="Black Cat Small" id="TiP-RX-I6g">
+                                    <menuItem title="Green Bub" image="Black Cat Small" id="TiP-RX-I6g">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Black Cat"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="setSkin:" target="Voe-Tx-rLC" id="M6i-p1-KaJ"/>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="lnH-WG-dSY"/>
                                         </connections>
                                     </menuItem>
                                 </items>

@@ -14,15 +14,20 @@ class BirdState : GKState {
     var birdIdentity: BirdIdentity
     var sprite: SKSpriteNode
     var textures: SKTextureAtlas
-    var window: NSWindow
+    weak var window: NSWindow? // TODO: better practice would be not to strongly reference the window in here. Use a weak var, or require the window when calling stateMachine.update() in the timer
     var velocity: NSPoint = NSPoint(x: 1, y: 1)
     var position: NSPoint {
         get {
+            guard let window else { return .zero }
             return window.frame.origin
         }
         set {
+            guard let window else { return }
             window.setFrameOrigin(newValue)
         }
+//        didSet {
+//            window?.setFrameOrigin(position)
+//        }
     }
     var actualDesitnation: NSPoint {
         get {
@@ -51,6 +56,7 @@ class BirdState : GKState {
         self.sprite = sprite
         self.textures = textures
         self.window = window
+//        self.position = window.frame.origin
         self.flockContext = flockContext
     }
     

@@ -1,8 +1,8 @@
 
-/* Class = "NSMenuItem"; title = "Cats"; ObjectID = "NY8-P3-MeQ"; */
-"NY8-P3-MeQ.title" = "Gatos";
+/* Class = "NSMenuItem"; title = "Chickens"; ObjectID = "NY8-P3-MeQ"; */
+"NY8-P3-MeQ.title" = "";
 
-/* Class = "NSMenuItem"; title = "About Cat"; ObjectID = "Pf3-0n-k6j"; */
+/* Class = "NSMenuItem"; title = "About Perch Politcs"; ObjectID = "Pf3-0n-k6j"; */
 "Pf3-0n-k6j.title" = "Acerca de Gato";
 
 /* Class = "NSMenuItem"; title = "E-mail support"; ObjectID = "PmL-VL-Wp0"; */
@@ -23,7 +23,7 @@
 /* Class = "NSMenuItem"; title = "Cat Homepage"; ObjectID = "atb-lf-I86"; */
 "atb-lf-I86.title" = "Homepage de Gato";
 
-/* Class = "NSMenu"; title = "Cats"; ObjectID = "up7-pO-HZt"; */
+/* Class = "NSMenu"; title = "Chickens"; ObjectID = "up7-pO-HZt"; */
 "up7-pO-HZt.title" = "Gatos";
 
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "xt2-tK-vnb"; */

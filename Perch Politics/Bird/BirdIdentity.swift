@@ -22,4 +22,8 @@ enum BirdIdentity: String, CaseIterable {
         case .peg: return "Black Cat"
         }
     }
+    
+    static func from(name: String) -> BirdIdentity? {
+        allCases.first { $0.name == name }
+    }
 }
