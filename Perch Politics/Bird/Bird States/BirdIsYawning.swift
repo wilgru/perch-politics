@@ -8,11 +8,11 @@
 import SpriteKit
 import GameplayKit
 
-class BirdIsYawning : BirdState { // akubi
-    override init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        super.init(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+class BirdIsYawning : BaseBirdState { // akubi
+    override init(flockContext: FlockContext, bird: Bird) {
+        super.init(flockContext: flockContext, bird: bird)
         validNextStates = [ BirdIsAwake.self, BirdIsScratching.self, BirdIsSleeping.self ]
         nextState = BirdIsSleeping.self
-        action = SKAction.setTexture(self.textures.textureNamed("mati3"))
+        action = SKAction.setTexture(bird.textures.textureNamed("mati3"))
     }
 }

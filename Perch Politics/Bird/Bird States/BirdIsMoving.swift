@@ -8,7 +8,7 @@
 import SpriteKit
 import GameplayKit
 
-class BirdIsMoving : BirdState {
+class BirdIsMoving : BaseBirdState {
     var speed : CGFloat = 16.0
     
     var frames : [BirdDirection:[String]] = [
@@ -20,60 +20,60 @@ class BirdIsMoving : BirdState {
         didSet {
             guard direction != oldValue else { return }
             
-            sprite.removeAllActions()
-            sprite.run(movingAction)
+            bird.sprite.removeAllActions()
+            bird.sprite.run(movingAction)
         }
     }
     
     var movingAction : SKAction {
         let animationFrames = self.frames[direction]!
-        return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { self.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
+        return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
     
-    override init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        super.init(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+    override init(flockContext: FlockContext, bird: Bird) {
+        super.init(flockContext: flockContext, bird: bird)
         validNextStates = [ BirdIsStopped.self ]
     }
     
     override func didEnter(from previousState: GKState?) {
         time = 0.0
         
-        let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
+        let delta = NSPoint(x: bird.actualDesitnation.x - bird.position.x, y: bird.actualDesitnation.y - bird.position.y)
         direction = BirdDirection(vector: delta)
         
-        sprite.removeAllActions()
-        sprite.run(movingAction)
+        bird.sprite.removeAllActions()
+        bird.sprite.run(movingAction)
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         guard let stateMachine = stateMachine else { return }
         time += seconds
         
-        if distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
+        if bird.distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
             stateMachine.enter(BirdIsStopped.self)
-            flockContext.birdSettledOrder[birdIdentity] = flockContext.birdSettledOrder.count
+            flockContext.birdSettledOrder[bird.birdIdentity] = flockContext.birdSettledOrder.count
             
             return
         }
         
-        let delta = NSPoint(x: actualDesitnation.x - position.x, y: actualDesitnation.y - position.y)
+        let delta = NSPoint(x: bird.actualDesitnation.x - bird.position.x, y: bird.actualDesitnation.y - bird.position.y)
         direction = BirdDirection(vector: delta)
         
-        if distance <= 20 { // TODO: use const for this value?
-            position = actualDesitnation
+        if bird.distance <= 20 { // TODO: use const for this value?
+            bird.position = bird.actualDesitnation
 //            velocity = .zero // keeping the last set velocity make for interesting movement next time they move
         } else {
-            let cohesion = flockContext.cohesionVelocity(for: birdIdentity)
-            let separation = flockContext.separationVelocity(for: birdIdentity)
+            let cohesion = flockContext.cohesionVelocity(for: bird.birdIdentity)
+            let separation = flockContext.separationVelocity(for: bird.birdIdentity)
             
-            velocity = NSPoint(
-                x: (velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / distance),
-                y: (velocity.y * 0.80) + cohesion.y + separation.y + (speed * delta.y / distance)
+            bird.velocity = NSPoint(
+                x: (bird.velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / bird.distance),
+                y: (bird.velocity.y * 0.80) + cohesion.y + separation.y + (speed * delta.y / bird.distance)
             )
             
-            position = NSPoint(x: position.x + velocity.x, y: position.y + velocity.y)
+            bird.position = NSPoint(x: bird.position.x + bird.velocity.x, y: bird.position.y + bird.velocity.y)
         }
         
-        flockContext.birdPositions[birdIdentity] = position
+        flockContext.birdPositions[bird.birdIdentity] = bird.position
     }
 }

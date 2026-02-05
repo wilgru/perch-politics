@@ -8,21 +8,21 @@
 import SpriteKit
 import GameplayKit
 
-class BirdIsAwake : BirdState {
+class BirdIsAwake : BaseBirdState {
     var timeBeforeMoving : TimeInterval = 0.250
     var distanceBeforeMoving : CGFloat = 32.0
     
-    override init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        super.init(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+    override init(flockContext: FlockContext, bird: Bird) {
+        super.init(flockContext: flockContext, bird: bird)
         validNextStates = [ BirdIsMoving.self, BirdIsStopped.self ]
-        action = SKAction.setTexture(self.textures.textureNamed("awake"))
+        action = SKAction.setTexture(bird.textures.textureNamed("awake"))
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         guard let stateMachine = stateMachine else { return }
         time += seconds
         
-        if distance >= distanceBeforeMoving && time >= timeBeforeMoving {
+        if bird.distance >= distanceBeforeMoving && time >= timeBeforeMoving {
             stateMachine.enter(BirdIsMoving.self)
         } else if time >= timeBeforeNextState {
             stateMachine.enter(BirdIsStopped.self)

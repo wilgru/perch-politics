@@ -8,11 +8,11 @@
 import SpriteKit
 import GameplayKit
 
-class BirdIsSleeping : BirdState {
-    override init(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow, flockContext: FlockContext) {
-        super.init(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
+class BirdIsSleeping : BaseBirdState {
+    override init(flockContext: FlockContext, bird: Bird) {
+        super.init(flockContext: flockContext, bird: bird)
         timePerFrame = 0.5
         validNextStates = [ BirdIsAwake.self, BirdIsSleeping.self ]
-        action = SKAction.repeatForever(SKAction.animate(with: ["sleep1", "sleep2"].map { self.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
+        action = SKAction.repeatForever(SKAction.animate(with: ["sleep1", "sleep2"].map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
 }

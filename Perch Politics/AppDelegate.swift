@@ -37,8 +37,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    let rect = NSRect(x: 0, y: 0, width: 64, height: 64) // TODO: make const
-    
     @IBOutlet var menu : NSMenu!
     
     @IBOutlet var skinMenu : NSMenu! { // toggled bird menu
@@ -136,43 +134,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    // TODO: start to move all this to the bird class and init there - make the bird own its states and whatnot closer
     func createBird(birdIdentity: BirdIdentity) {
-        let scene = SKScene(size: rect.size)
-        scene.backgroundColor = NSColor.clear
-        
-        let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("awake"))
-        sprite.anchorPoint = NSPoint.zero
-        
-        scene.addChild(sprite)
-
-        let spriteView = SKView()
-        spriteView.allowsTransparency = true
-        spriteView.presentScene(scene)
-        spriteView.menu = menu
-
-        let window = NSWindow(contentRect: rect, styleMask: .borderless, backing: .buffered, defer: false)
-        window.backgroundColor = NSColor.clear
-        window.hasShadow = false  // Shadow is not updated when sprite changes
-        window.isMovableByWindowBackground = true
-        window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow))) // Over all windows and menu bar, but under the screen saver
-        window.ignoresMouseEvents = false
-        window.collectionBehavior = [.canJoinAllSpaces, .stationary]
-        window.contentView = spriteView
-        window.center() // TODO: make the window start somehwere else
-
-        let windowController = NSWindowController(window: window)
-        windowController.showWindow(self)
-        
-        let birdStateMachine = createStateMachine(birdIdentity: birdIdentity, sprite: sprite, textures: SKTextureAtlas(named: birdIdentity.atlasName), window: window)
-        
-        let birdTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
-            birdStateMachine.update(deltaTime: timer.timeInterval)
-        }
-        RunLoop.current.add(birdTimer, forMode: .common)
-        
-        // create class instance
-        let birdInstance = Bird(windowController: windowController, birdIdentity: birdIdentity, stateMachine: birdStateMachine, timer: birdTimer)
+        let birdInstance = Bird(birdIdentity: birdIdentity, flockContext: flockContext)
         birdInstances.append(birdInstance)
     }
     
@@ -180,21 +143,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         birdInstances.removeAll { birdInstance in
             birdInstance.birdIdentity == birdToRemoveByIdentity
         }
-    }
-    
-    func createStateMachine(birdIdentity: BirdIdentity, sprite: SKSpriteNode, textures: SKTextureAtlas, window: NSWindow) -> GKStateMachine {
-        let birdStates = [
-            BirdIsStopped(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            BirdIsLicking(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            BirdIsScratching(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            BirdIsYawning(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            BirdIsSleeping(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            BirdIsAwake(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext),
-            BirdIsMoving(birdIdentity: birdIdentity, sprite: sprite, textures: textures, window: window, flockContext: flockContext)
-        ]
-        let stateMachine = GKStateMachine(states: birdStates)
-        stateMachine.enter(BirdIsAwake.self)
-
-        return stateMachine
     }
 }
