@@ -13,6 +13,6 @@ class BirdIsStopped : BaseBirdState {
         super.init(flockContext: flockContext, bird: bird)
         validNextStates = [ BirdIsAwake.self, BirdIsLicking.self ]
         nextState = BirdIsLicking.self
-        action = SKAction.setTexture(self.textures.textureNamed("mati2"))
+        action = SKAction.setTexture(bird.textures.textureNamed("mati2"))
     }
 }

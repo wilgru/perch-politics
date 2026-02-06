@@ -10,7 +10,7 @@ import Foundation
 import GameplayKit
 
 final class FlockState: GKState {
-    unowned let flockContext: FlockContext  // unowned to avoid retain cycles
+    weak let flockContext: FlockContext?  // weak to avoid retain cycles
     
     init(flockContext: FlockContext) {
         self.flockContext = flockContext
@@ -18,12 +18,15 @@ final class FlockState: GKState {
 
     override func update(deltaTime seconds: TimeInterval) {
         guard stateMachine != nil else { return }
+        guard let flockContext = flockContext else { return }
         
         let perchPosition = flockContext.activeWindowGeometry ?? flockContext.dockGeometry ?? (32, 0, 0)
         let distance = hypot(perchPosition.leftX - 32 - flockContext.destination.x, perchPosition.topY - flockContext.destination.y)
         
         if (distance >= 32) { // TODO: set this as a const and use in the bird states too
-            flockContext.birdSettledOrder = [:]
+            for bird in flockContext.birds {
+                bird.settledOrder = nil
+            }
         }
         
         if (perchPosition.leftX - 32 != flockContext.destination.x || perchPosition.topY != flockContext.destination.y) {

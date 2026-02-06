@@ -51,7 +51,7 @@ class BirdIsMoving : BaseBirdState {
         
         if bird.distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
             stateMachine.enter(BirdIsStopped.self)
-            flockContext.birdSettledOrder[bird.birdIdentity] = flockContext.birdSettledOrder.count
+            bird.settledOrder = flockContext.settledBirdsCount
             
             return
         }
@@ -63,8 +63,8 @@ class BirdIsMoving : BaseBirdState {
             bird.position = bird.actualDesitnation
 //            velocity = .zero // keeping the last set velocity make for interesting movement next time they move
         } else {
-            let cohesion = flockContext.cohesionVelocity(for: bird.birdIdentity)
-            let separation = flockContext.separationVelocity(for: bird.birdIdentity)
+            let cohesion = flockContext.cohesionVelocity(for: bird)
+            let separation = flockContext.separationVelocity(for: bird)
             
             bird.velocity = NSPoint(
                 x: (bird.velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / bird.distance),
@@ -73,7 +73,5 @@ class BirdIsMoving : BaseBirdState {
             
             bird.position = NSPoint(x: bird.position.x + bird.velocity.x, y: bird.position.y + bird.velocity.y)
         }
-        
-        flockContext.birdPositions[bird.birdIdentity] = bird.position
     }
 }

@@ -21,22 +21,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return fallback
     }()
     
-    var birdInstances: [Bird] = [] {
-        didSet {
-            let birdNames = birdInstances.map { $0.birdIdentity.name }
-            
-            for menu in [skinMenu, barSkinMenu, dockSkinMenu] {
-                for item in menu!.items {
-                    item.state = birdNames.contains { birdName in
-                        item.title == birdName
-                    } ? .on : .off
-                }
-            }
-            
-            UserDefaults.standard.set(birdNames, forKey: "initialBirdNames") // TODO: move this to the create and destroy methods? so that we can call removeAll on this array at termination without it affecting the UserDefaults
-        }
-    }
-    
     @IBOutlet var menu : NSMenu!
     
     @IBOutlet var skinMenu : NSMenu! { // toggled bird menu
@@ -78,27 +62,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func toggleBird(_ sender: NSMenuItem) {
-        // TODO: find bird in birdInstances and create or destroy - didSet on that array will update menus and userdefaults to add/remove bird name
         let birdToToggleName = sender.title
-        guard let birdToToggleIdentity = BirdIdentity.from(name: birdToToggleName) else { return }
         
-        let existingBirdInstance = birdInstances.first { birdInstace in
-            birdInstace.birdIdentity == birdToToggleIdentity
+        let bird = flockContext.birds.first { bird in
+            bird.birdIdentity.name == birdToToggleName
         }
+        bird?.toggleSpawn()
         
-        if (existingBirdInstance == nil) {
-            createBird(birdIdentity: birdToToggleIdentity)
-        } else {
-            destroyBird(birdToRemoveByIdentity: birdToToggleIdentity)
-        }
-        
-        return
+        updateMenus()
     }
     
     // TODO: still needed?
     @objc func updateStateMachineLegacy(_ timer: Timer) {
         guard let machine = timer.userInfo as? GKStateMachine else { return }
         machine.update(deltaTime: timer.timeInterval)
+    }
+    
+    func updateMenus() {
+        let spawnedBirdNames = flockContext.spawnedBirds.map { $0.birdIdentity.name }
+        for menu in [skinMenu, barSkinMenu, dockSkinMenu] {
+            for item in menu!.items {
+                item.state = spawnedBirdNames.contains { birdName in
+                    item.title == birdName
+                } ? .on : .off
+            }
+        }
+        
+        UserDefaults.standard.set(spawnedBirdNames, forKey: "initialBirdNames")
     }
     
     func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
@@ -118,30 +108,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let initialBirdIdentities = BirdIdentity.allCases.filter { birdIdentity in
             initialBirdNames.contains(birdIdentity.name)
         }
-        for birdIdentity in initialBirdIdentities {
-            createBird(birdIdentity: birdIdentity)
+        
+        for birdIdentity in BirdIdentity.allCases {
+            let newBird = Bird(birdIdentity: birdIdentity, flockContext: flockContext)
+            
+            flockContext.birds.append(newBird)
         }
+        
+        for birdIdentity in initialBirdIdentities {
+            flockContext.spawnBird(birdIdentity: birdIdentity)
+        }
+        
+        updateMenus()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        for birdInstance in birdInstances {
-            birdInstance.timer.invalidate()
+        for bird in flockContext.birds {
+            bird.despawn()
         }
-//        birdInstances.removeAll() // this will trigger the didSet on the array, so you might loose the UserDefaults then
+//        flockContext.birds.removeAll()
         
         for otherTimer in otherTimers {
             otherTimer.invalidate()
-        }
-    }
-    
-    func createBird(birdIdentity: BirdIdentity) {
-        let birdInstance = Bird(birdIdentity: birdIdentity, flockContext: flockContext)
-        birdInstances.append(birdInstance)
-    }
-    
-    func destroyBird(birdToRemoveByIdentity: BirdIdentity) {
-        birdInstances.removeAll { birdInstance in
-            birdInstance.birdIdentity == birdToRemoveByIdentity
         }
     }
 }
