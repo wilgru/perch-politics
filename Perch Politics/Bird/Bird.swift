@@ -15,7 +15,7 @@ final class Bird {
     
     var sprite: SKSpriteNode
     var textures: SKTextureAtlas
-    var windowController: NSWindowController
+    var windowController: NSWindowController?
     var stateMachine: GKStateMachine?
     var timer: Timer?
     
@@ -25,7 +25,7 @@ final class Bird {
     var velocity: NSPoint = NSPoint(x: 1, y: 1)
     var position: NSPoint {
         didSet {
-            self.windowController.window?.setFrameOrigin(position)
+            self.windowController?.window?.setFrameOrigin(position)
         }
     }
     var actualDesitnation: NSPoint {
@@ -53,6 +53,16 @@ final class Bird {
         sprite.anchorPoint = NSPoint.zero
         self.sprite = sprite
         self.textures = SKTextureAtlas(named: birdIdentity.atlasName)
+        self.position = .zero // TODO: make the window start somehwere random
+    }
+    
+    deinit {
+        despawn()
+    }
+    
+    func spawn() {
+        guard let flock = flock else { return }
+        guard !spawned else { return }
         
         let rect = NSRect(x: 0, y: 0, width: 64, height: 64) // TODO: make const
         let scene = SKScene(size: rect.size)
@@ -72,19 +82,12 @@ final class Bird {
         window.ignoresMouseEvents = false
         window.collectionBehavior = [.canJoinAllSpaces, .stationary]
         window.contentView = spriteView
-        window.center() // TODO: make the window start somehwere else
+        window.setFrameOrigin(position)
         
         let windowController = NSWindowController(window: window)
+        windowController.showWindow(self)
         
-        self.windowController = windowController
-        self.position = windowController.window?.frame.origin ?? .zero
-    }
-    
-    func spawn() {
-        guard let flock = flock else { return }
-        guard !spawned else { return }
-        
-        let birdStates = [
+        let stateMachine = GKStateMachine(states: [
             BirdIsStopped(flock: flock, bird: self),
             BirdIsLicking(flock: flock, bird: self),
             BirdIsScratching(flock: flock, bird: self),
@@ -92,8 +95,7 @@ final class Bird {
             BirdIsSleeping(flock: flock, bird: self),
             BirdIsAwake(flock: flock, bird: self),
             BirdIsMoving(flock: flock, bird: self),
-        ]
-        let stateMachine = GKStateMachine(states: birdStates)
+        ])
         stateMachine.enter(BirdIsAwake.self)
         
         let timer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
@@ -101,29 +103,25 @@ final class Bird {
         }
         RunLoop.current.add(timer, forMode: .common)
         
+        self.windowController = windowController
         self.stateMachine = stateMachine
         self.timer = timer
         self.spawned = true
-        
-        self.windowController.showWindow(self)
     }
     
     func despawn() {
         guard spawned else { return }
         
+        windowController?.close()
         timer?.invalidate()
-        windowController.close()
-        spawned = false
         
+        self.spawned = false
         self.timer = nil
         self.stateMachine = nil
+        self.windowController = nil
     }
     
     func toggleSpawn() {
         spawned ? despawn() : spawn()
-    }
-
-    deinit {
-        despawn()
     }
 }
