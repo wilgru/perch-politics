@@ -15,7 +15,7 @@ enum BirdDirection : Int {
         let angle = Double(atan2(vector.y, vector.x))
         
         switch(angle) {
-        case (-7/8 * .pi)...(1/8 * .pi):
+        case (-.pi / 2)...(.pi / 2):
             self = .right
         default:
             self = .left
