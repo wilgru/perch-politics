@@ -11,7 +11,7 @@ import SpriteKit
 import GameplayKit
 
 final class Bird {
-    weak let flockContext: FlockContext?
+    weak let flock: Flock?
     
     var sprite: SKSpriteNode
     var textures: SKTextureAtlas
@@ -30,10 +30,10 @@ final class Bird {
     }
     var actualDesitnation: NSPoint {
         get {
-            guard let flockContext = flockContext else { return .zero }
+            guard let flock = flock else { return .zero }
             
-            let order = settledOrder ?? flockContext.settledBirdsCount
-            return NSPoint(x: flockContext.destination.x + CGFloat(order * 64), y: flockContext.destination.y) // TODO: use const for 64?
+            let order = settledOrder ?? flock.settledBirdsCount
+            return NSPoint(x: flock.destination.x + CGFloat(order * 64), y: flock.destination.y) // TODO: use const for 64?
         }
     }
     var distance: CGFloat {
@@ -43,10 +43,10 @@ final class Bird {
     }
 
     init(
-        birdIdentity: BirdIdentity,
-        flockContext: FlockContext
+        flock: Flock,
+        birdIdentity: BirdIdentity
     ) {
-        self.flockContext = flockContext
+        self.flock = flock
         self.birdIdentity = birdIdentity
         
         let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("awake"))
@@ -81,17 +81,17 @@ final class Bird {
     }
     
     func spawn() {
-        guard let flockContext = flockContext else { return }
+        guard let flock = flock else { return }
         guard !spawned else { return }
         
         let birdStates = [
-            BirdIsStopped(flockContext: flockContext, bird: self),
-            BirdIsLicking(flockContext: flockContext, bird: self),
-            BirdIsScratching(flockContext: flockContext, bird: self),
-            BirdIsYawning(flockContext: flockContext, bird: self),
-            BirdIsSleeping(flockContext: flockContext, bird: self),
-            BirdIsAwake(flockContext: flockContext, bird: self),
-            BirdIsMoving(flockContext: flockContext, bird: self),
+            BirdIsStopped(flock: flock, bird: self),
+            BirdIsLicking(flock: flock, bird: self),
+            BirdIsScratching(flock: flock, bird: self),
+            BirdIsYawning(flock: flock, bird: self),
+            BirdIsSleeping(flock: flock, bird: self),
+            BirdIsAwake(flock: flock, bird: self),
+            BirdIsMoving(flock: flock, bird: self),
         ]
         let stateMachine = GKStateMachine(states: birdStates)
         stateMachine.enter(BirdIsAwake.self)

@@ -12,7 +12,7 @@ import GameplayKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    let flockContext = FlockContext()
+    let flock = Flock()
     var otherTimers: [Timer] = []
     
     let initialBirdNames = UserDefaults.standard.stringArray(forKey: "initialBirdNames") ?? {
@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func toggleBird(_ sender: NSMenuItem) {
         let birdToToggleName = sender.title
         
-        let bird = flockContext.birds.first { bird in
+        let bird = flock.birds.first { bird in
             bird.birdIdentity.name == birdToToggleName
         }
         bird?.toggleSpawn()
@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateMenus() {
-        let spawnedBirdNames = flockContext.spawnedBirds.map { $0.birdIdentity.name }
+        let spawnedBirdNames = flock.spawnedBirds.map { $0.birdIdentity.name }
         for menu in [skinMenu, barSkinMenu, dockSkinMenu] {
             for item in menu!.items {
                 item.state = spawnedBirdNames.contains { birdName in
@@ -96,7 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let flockStateMachine = GKStateMachine(states: [FlockState(flockContext: flockContext)])
+        let flockStateMachine = GKStateMachine(states: [FlockState(flock: flock)])
         flockStateMachine.enter(FlockState.self)
         
         let flockTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
@@ -110,20 +110,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         for birdIdentity in BirdIdentity.allCases {
-            let newBird = Bird(birdIdentity: birdIdentity, flockContext: flockContext)
+            let newBird = Bird(flock: flock, birdIdentity: birdIdentity)
             
-            flockContext.birds.append(newBird)
+            flock.birds.append(newBird)
         }
         
         for birdIdentity in initialBirdIdentities {
-            flockContext.spawnBird(birdIdentity: birdIdentity)
+            flock.spawnBird(birdIdentity: birdIdentity)
         }
         
         updateMenus()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        for bird in flockContext.birds {
+        for bird in flock.birds {
             bird.despawn()
         }
 //        flockContext.birds.removeAll()

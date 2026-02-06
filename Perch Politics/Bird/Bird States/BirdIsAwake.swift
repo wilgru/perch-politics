@@ -12,8 +12,8 @@ class BirdIsAwake : BaseBirdState {
     var timeBeforeMoving : TimeInterval = 0.250
     var distanceBeforeMoving : CGFloat = 32.0
     
-    override init(flockContext: FlockContext, bird: Bird) {
-        super.init(flockContext: flockContext, bird: bird)
+    override init(flock: Flock, bird: Bird) {
+        super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsMoving.self, BirdIsStopped.self ]
         action = SKAction.setTexture(bird.textures.textureNamed("awake"))
     }

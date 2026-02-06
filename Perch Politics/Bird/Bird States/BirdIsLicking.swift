@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class BirdIsLicking : BaseBirdState { // jare
-    override init(flockContext: FlockContext, bird: Bird) {
-        super.init(flockContext: flockContext, bird: bird)
+    override init(flock: Flock, bird: Bird) {
+        super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsAwake.self, BirdIsScratching.self ]
         nextState = BirdIsScratching.self
         action = SKAction.repeatForever(SKAction.animate(with: ["jare2", "mati2"].map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))

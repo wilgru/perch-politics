@@ -1,5 +1,5 @@
 //
-//  FlockContext.swift
+//  Flock.swift
 //  Perch Politics
 //
 //  Created by William Gruszka on 2/2/2026.
@@ -9,7 +9,7 @@
 import Foundation
 import GameplayKit
 
-final class FlockContext {
+final class Flock {
     var birds: [Bird] = []
     var spawnedBirds: [Bird] {
         birds.filter { bird in

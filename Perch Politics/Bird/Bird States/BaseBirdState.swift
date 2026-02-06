@@ -1,5 +1,5 @@
 //
-//  BirdState.swift
+//  BaseBirdState.swift
 //  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/17.
@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class BaseBirdState : GKState {
-    unowned let flockContext: FlockContext  // unowned to avoid retain cycles
+    unowned let flock: Flock  // unowned to avoid retain cycles
     unowned let bird: Bird
     
     var time: TimeInterval = 0.0
@@ -22,8 +22,8 @@ class BaseBirdState : GKState {
     
     var action : SKAction! = nil
     
-    init(flockContext: FlockContext, bird: Bird) {
-        self.flockContext = flockContext
+    init(flock: Flock, bird: Bird) {
+        self.flock = flock
         self.bird = bird
     }
     

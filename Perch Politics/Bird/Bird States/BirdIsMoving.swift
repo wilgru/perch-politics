@@ -30,8 +30,8 @@ class BirdIsMoving : BaseBirdState {
         return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
     
-    override init(flockContext: FlockContext, bird: Bird) {
-        super.init(flockContext: flockContext, bird: bird)
+    override init(flock: Flock, bird: Bird) {
+        super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsStopped.self ]
     }
     
@@ -51,7 +51,7 @@ class BirdIsMoving : BaseBirdState {
         
         if bird.distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
             stateMachine.enter(BirdIsStopped.self)
-            bird.settledOrder = flockContext.settledBirdsCount
+            bird.settledOrder = flock.settledBirdsCount
             
             return
         }
@@ -63,8 +63,8 @@ class BirdIsMoving : BaseBirdState {
             bird.position = bird.actualDesitnation
 //            velocity = .zero // keeping the last set velocity make for interesting movement next time they move
         } else {
-            let cohesion = flockContext.cohesionVelocity(for: bird)
-            let separation = flockContext.separationVelocity(for: bird)
+            let cohesion = flock.cohesionVelocity(for: bird)
+            let separation = flock.separationVelocity(for: bird)
             
             bird.velocity = NSPoint(
                 x: (bird.velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / bird.distance),

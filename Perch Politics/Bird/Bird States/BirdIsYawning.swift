@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class BirdIsYawning : BaseBirdState { // akubi
-    override init(flockContext: FlockContext, bird: Bird) {
-        super.init(flockContext: flockContext, bird: bird)
+    override init(flock: Flock, bird: Bird) {
+        super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsAwake.self, BirdIsScratching.self, BirdIsSleeping.self ]
         nextState = BirdIsSleeping.self
         action = SKAction.setTexture(bird.textures.textureNamed("mati3"))

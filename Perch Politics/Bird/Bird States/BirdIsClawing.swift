@@ -28,8 +28,8 @@ class BirdIsClawing : BaseBirdState { // togi
         return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
 
-    override init(flockContext: FlockContext, bird: Bird) {
-        super.init(flockContext: flockContext, bird: bird)
+    override init(flock: Flock, bird: Bird) {
+        super.init(flock: flock, bird: bird)
         timeBeforeNextState = 5.0
         validNextStates = [ BirdIsAwake.self, BirdIsScratching.self ]
         nextState = BirdIsScratching.self
@@ -38,7 +38,7 @@ class BirdIsClawing : BaseBirdState { // togi
     override func didEnter(from previousState: GKState?) {
         time = 0.0
 
-        let delta = NSPoint(x: flockContext.destination.x - bird.position.x, y: flockContext.destination.y - bird.position.y)
+        let delta = NSPoint(x: flock.destination.x - bird.position.x, y: flock.destination.y - bird.position.y)
         direction = BirdDirection.squared(vector: delta)
         bird.sprite.removeAllActions()
         bird.sprite.run(clawingAction)

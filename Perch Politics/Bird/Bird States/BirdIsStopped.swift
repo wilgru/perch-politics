@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class BirdIsStopped : BaseBirdState {
-    override init(flockContext: FlockContext, bird: Bird) {
-        super.init(flockContext: flockContext, bird: bird)
+    override init(flock: Flock, bird: Bird) {
+        super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsAwake.self, BirdIsLicking.self ]
         nextState = BirdIsLicking.self
         action = SKAction.setTexture(bird.textures.textureNamed("mati2"))
