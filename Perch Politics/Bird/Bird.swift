@@ -91,6 +91,7 @@ final class Bird {
         let stateMachine = GKStateMachine(states: [
             BirdIsIdle(flock: flock, bird: self),
             BirdIsBlinking(flock: flock, bird: self),
+            BirdIsStretching(flock: flock, bird: self),
             BirdIsGoingToSleep(flock: flock, bird: self),
             BirdIsSleeping(flock: flock, bird: self),
             BirdIsAwake(flock: flock, bird: self),

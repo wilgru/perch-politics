@@ -40,13 +40,13 @@ class BirdIsIdle: BaseBirdState {
         }
         
         var randomInt = Int.random(in: 1...100)
-        if randomInt > 99 {
+        if randomInt == 100 {
             stateMachine.enter(BirdIsBlinking.self)
             return
         }
         
         randomInt = Int.random(in: 1...100)
-        if randomInt > 99 {
+        if randomInt == 100 {
             bird.direction = bird.direction == .left ? .right : .left
             bird.sprite.removeAllActions()
             bird.sprite.run(idleAction)

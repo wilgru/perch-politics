@@ -30,6 +30,7 @@ class BirdIsBlinking: BaseBirdState {
     }
 
     override func didEnter(from previousState: GKState?) {
+        nextState = Int.random(in: 1...4) == 4 ? BirdIsStretching.self : BirdIsIdle.self
         action = blinkingAction
         super.didEnter(from: previousState)
     }
