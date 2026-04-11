@@ -13,11 +13,24 @@ class BirdIsBlinking: BaseBirdState {
         .left: "blink_left",
         .right: "blink_right"
     ]
+
+    private var blinkingAction: SKAction {
+        SKAction.repeatForever(
+            SKAction.animate(
+                with: [frame[bird.direction]!].map { bird.textures.textureNamed($0) },
+                timePerFrame: self.timePerFrame
+            )
+        )
+    }
     
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsIdle.self, BirdIsStretching.self ]
         nextState = BirdIsIdle.self
-        action = SKAction.repeatForever(SKAction.animate(with: [frame[bird.direction]!].map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
+    }
+
+    override func didEnter(from previousState: GKState?) {
+        action = blinkingAction
+        super.didEnter(from: previousState)
     }
 }

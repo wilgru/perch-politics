@@ -13,12 +13,20 @@ class BirdIsIdle: BaseBirdState {
         .left: "idle_left",
         .right: "idle_right"
     ]
+
+    private var idleAction: SKAction {
+        SKAction.setTexture(bird.textures.textureNamed(frame[bird.direction]!))
+    }
     
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
         validNextStates = [ BirdIsAwake.self, BirdIsBlinking.self ]
         nextState = BirdIsBlinking.self
-        action = SKAction.setTexture(bird.textures.textureNamed(frame[bird.direction]!))
+    }
+
+    override func didEnter(from previousState: GKState?) {
+        action = idleAction
+        super.didEnter(from: previousState)
     }
     
     override func update(deltaTime seconds: TimeInterval) {
@@ -32,16 +40,16 @@ class BirdIsIdle: BaseBirdState {
         }
         
         var randomInt = Int.random(in: 1...100)
-        if randomInt > 95 {
+        if randomInt > 99 {
             stateMachine.enter(BirdIsBlinking.self)
             return
         }
         
         randomInt = Int.random(in: 1...100)
-        if randomInt > 95 {
+        if randomInt > 99 {
             bird.direction = bird.direction == .left ? .right : .left
             bird.sprite.removeAllActions()
-            bird.sprite.run(SKAction.setTexture(bird.textures.textureNamed(frame[bird.direction]!)))
+            bird.sprite.run(idleAction)
             return
         }
     }
