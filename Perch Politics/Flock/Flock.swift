@@ -27,6 +27,12 @@ final class Flock {
     var destination: NSPoint = .zero
     var cohesionStrength: CGFloat = 0.01
     var separationStrength: CGFloat = 2
+
+    private func getFlockmates(for givenBird: Bird) -> [Bird] {
+        spawnedBirds.filter { bird in
+            bird !== givenBird
+        }
+    }
     
     func spawnBird(birdIdentity: BirdIdentity) {
         let foundBird = birds.first { bird in
@@ -45,14 +51,14 @@ final class Flock {
     
     // Returns a velocity adjustment vector steering toward the center of mass of local flockmates (cohesion)
     func cohesionVelocity(for givenBird: Bird) -> NSPoint {
-        let otherBirds = birds.filter { $0.birdIdentity != givenBird.birdIdentity }
-        guard !otherBirds.isEmpty else { return .zero }
+        let flockmates = getFlockmates(for: givenBird) // flockmates being the other birds that isnt the given bird
+        guard !flockmates.isEmpty else { return .zero }
         
         // Calculate center of mass
-        let birdPositionsSum = otherBirds.reduce(NSPoint.zero) { sum, otherBird in
-            return NSPoint(x: sum.x + otherBird.position.x, y: sum.y + otherBird.position.y)
+        let birdPositionsSum = flockmates.reduce(NSPoint.zero) { sum, flockmate in
+            return NSPoint(x: sum.x + flockmate.position.x, y: sum.y + flockmate.position.y)
         }
-        let count = CGFloat(otherBirds.count)
+        let count = CGFloat(flockmates.count)
         let centerPoint = NSPoint(x: birdPositionsSum.x / count, y: birdPositionsSum.y / count)
         
         // Steer towards the center
@@ -63,9 +69,9 @@ final class Flock {
     // Returns a velocity adjustment vector steering away from close flockmates (separation)
     func separationVelocity(for givenBird: Bird) -> NSPoint {
         var repulsion = NSPoint.zero
-        for otherBird in birds where otherBird.birdIdentity != givenBird.birdIdentity {
-            let distanceX = givenBird.position.x - otherBird.position.x
-            let distanceY = givenBird.position.y - otherBird.position.y
+        for flockmate in getFlockmates(for: givenBird) {
+            let distanceX = givenBird.position.x - flockmate.position.x
+            let distanceY = givenBird.position.y - flockmate.position.y
             let distanceSquared = distanceX * distanceX + distanceY * distanceY
             
             if distanceSquared > 0 {
