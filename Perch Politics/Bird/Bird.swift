@@ -11,6 +11,14 @@ import SpriteKit
 import GameplayKit
 
 final class Bird {
+    private enum SpawnEdge: CaseIterable {
+        case left
+        case right
+        case top
+    }
+
+    private let birdSize = NSSize(width: 64, height: 64)
+
     weak let flock: Flock?
     
     var sprite: SKSpriteNode
@@ -43,6 +51,33 @@ final class Bird {
         }
     }
 
+    private func randomSpawnPosition() -> NSPoint {
+        guard let screenFrame = NSScreen.main?.frame else {
+            return NSPoint(x: actualDesitnation.x - birdSize.width, y: actualDesitnation.y + birdSize.height)
+        }
+
+        let maxSpawnX = max(screenFrame.minX, screenFrame.maxX - birdSize.width)
+        let maxSpawnY = max(screenFrame.minY, screenFrame.maxY - birdSize.height)
+
+        switch SpawnEdge.allCases.randomElement()! {
+        case .left:
+            return NSPoint(
+                x: screenFrame.minX - birdSize.width,
+                y: CGFloat.random(in: screenFrame.minY...maxSpawnY)
+            )
+        case .right:
+            return NSPoint(
+                x: screenFrame.maxX,
+                y: CGFloat.random(in: screenFrame.minY...maxSpawnY)
+            )
+        case .top:
+            return NSPoint(
+                x: CGFloat.random(in: screenFrame.minX...maxSpawnX),
+                y: screenFrame.maxY
+            )
+        }
+    }
+
     init(
         flock: Flock,
         birdIdentity: BirdIdentity
@@ -54,7 +89,7 @@ final class Bird {
         sprite.anchorPoint = NSPoint.zero
         self.sprite = sprite
         self.textures = SKTextureAtlas(named: birdIdentity.atlasName)
-        self.position = .zero // TODO: make the window start somehwere random
+        self.position = .zero
     }
     
     deinit {
@@ -65,7 +100,9 @@ final class Bird {
         guard let flock = flock else { return }
         guard !spawned else { return }
         
-        let rect = NSRect(x: 0, y: 0, width: 64, height: 64) // TODO: make const
+        position = randomSpawnPosition()
+
+        let rect = NSRect(origin: .zero, size: birdSize)
         let scene = SKScene(size: rect.size)
         scene.backgroundColor = NSColor.clear
         scene.addChild(sprite)
