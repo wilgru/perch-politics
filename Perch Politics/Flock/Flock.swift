@@ -154,7 +154,7 @@ final class Flock {
         return (
             leftX: Double(centerX),
             rightX: Double(centerX),
-            topY: Double(topY)
+            topY: Double(topY - 1) // the dock seems to have a 1px padding, so subtracting 1 to account for that
         )
     }
 }

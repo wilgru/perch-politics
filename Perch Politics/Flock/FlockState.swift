@@ -30,7 +30,7 @@ final class FlockState: GKState {
         }
         
         if (perchPosition.leftX - 32 != flock.destination.x || perchPosition.topY != flock.destination.y) {
-            flock.destination = NSPoint(x: perchPosition.leftX - 32, y: perchPosition.topY)
+            flock.destination = NSPoint(x: perchPosition.leftX - 32, y: perchPosition.topY - 6)
         }
     }
 }
