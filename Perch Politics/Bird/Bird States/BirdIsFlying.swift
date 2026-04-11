@@ -1,5 +1,5 @@
 //
-//  BirdIsMoving.swift
+//  BirdIsFlying.swift
 //  Perch Politics
 //
 //  Created by Matusalem Marques on 2017/02/28.
@@ -8,38 +8,29 @@
 import SpriteKit
 import GameplayKit
 
-class BirdIsMoving : BaseBirdState {
-    var speed : CGFloat = 16.0
+class BirdIsFlying: BaseBirdState {
+    var speed: CGFloat = 16.0
     
-    var frames : [BirdDirection:[String]] = [
-        .left : ["left1","left2"],
-        .right : ["right1","right2"],
+    var frames: [BirdDirection:[String]] = [
+        .left: ["fly_left_1","fly_left_2", "fly_left_3"],
+        .right: ["fly_right_1","fly_right_2", "fly_right_3"],
     ]
     
-    var direction : BirdDirection = .left {
-        didSet {
-            guard direction != oldValue else { return }
-            
-            bird.sprite.removeAllActions()
-            bird.sprite.run(movingAction)
-        }
-    }
-    
-    var movingAction : SKAction {
-        let animationFrames = self.frames[direction]!
+    var movingAction: SKAction {
+        let animationFrames = self.frames[bird.direction]!
         return SKAction.repeatForever(SKAction.animate(with: animationFrames.map { bird.textures.textureNamed($0) }, timePerFrame: self.timePerFrame))
     }
     
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
-        validNextStates = [ BirdIsStopped.self ]
+        validNextStates = [ BirdIsIdle.self ]
     }
     
     override func didEnter(from previousState: GKState?) {
         time = 0.0
         
         let delta = NSPoint(x: bird.actualDesitnation.x - bird.position.x, y: bird.actualDesitnation.y - bird.position.y)
-        direction = BirdDirection(vector: delta)
+        bird.direction = BirdDirection(vector: delta)
         
         bird.sprite.removeAllActions()
         bird.sprite.run(movingAction)
@@ -50,14 +41,21 @@ class BirdIsMoving : BaseBirdState {
         time += seconds
         
         if bird.distance <= CGFloat(2.squareRoot()) { // Maximum error in distance is sqrt(2)
-            stateMachine.enter(BirdIsStopped.self)
+            stateMachine.enter(BirdIsIdle.self)
             bird.settledOrder = flock.settledBirdsCount
             
             return
         }
         
         let delta = NSPoint(x: bird.actualDesitnation.x - bird.position.x, y: bird.actualDesitnation.y - bird.position.y)
-        direction = BirdDirection(vector: delta)
+        let newDirection = BirdDirection(vector: delta)
+        
+        if bird.direction != newDirection {
+            bird.direction = newDirection
+            
+            bird.sprite.removeAllActions()
+            bird.sprite.run(movingAction)
+        }
         
         if bird.distance <= 20 { // TODO: use const for this value?
             bird.position = bird.actualDesitnation

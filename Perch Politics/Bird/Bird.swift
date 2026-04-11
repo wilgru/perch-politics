@@ -22,6 +22,7 @@ final class Bird {
     let birdIdentity: BirdIdentity
     var spawned = false
     var settledOrder: Int?
+    var direction: BirdDirection = .left
     var velocity: NSPoint = NSPoint(x: 1, y: 1)
     var position: NSPoint {
         didSet {
@@ -49,7 +50,7 @@ final class Bird {
         self.flock = flock
         self.birdIdentity = birdIdentity
         
-        let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("awake"))
+        let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("idle_left"))
         sprite.anchorPoint = NSPoint.zero
         self.sprite = sprite
         self.textures = SKTextureAtlas(named: birdIdentity.atlasName)
@@ -88,13 +89,12 @@ final class Bird {
         windowController.showWindow(self)
         
         let stateMachine = GKStateMachine(states: [
-            BirdIsStopped(flock: flock, bird: self),
-            BirdIsLicking(flock: flock, bird: self),
-            BirdIsScratching(flock: flock, bird: self),
-            BirdIsYawning(flock: flock, bird: self),
+            BirdIsIdle(flock: flock, bird: self),
+            BirdIsBlinking(flock: flock, bird: self),
+            BirdIsGoingToSleep(flock: flock, bird: self),
             BirdIsSleeping(flock: flock, bird: self),
             BirdIsAwake(flock: flock, bird: self),
-            BirdIsMoving(flock: flock, bird: self),
+            BirdIsFlying(flock: flock, bird: self),
         ])
         stateMachine.enter(BirdIsAwake.self)
         

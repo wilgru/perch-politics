@@ -14,8 +14,8 @@ class BirdIsAwake : BaseBirdState {
     
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
-        validNextStates = [ BirdIsMoving.self, BirdIsStopped.self ]
-        action = SKAction.setTexture(bird.textures.textureNamed("awake"))
+        validNextStates = [ BirdIsFlying.self, BirdIsIdle.self ]
+        action = SKAction.setTexture(bird.textures.textureNamed("idle_left"))
     }
     
     override func update(deltaTime seconds: TimeInterval) {
@@ -23,9 +23,9 @@ class BirdIsAwake : BaseBirdState {
         time += seconds
         
         if bird.distance >= distanceBeforeMoving && time >= timeBeforeMoving {
-            stateMachine.enter(BirdIsMoving.self)
+            stateMachine.enter(BirdIsFlying.self)
         } else if time >= timeBeforeNextState {
-            stateMachine.enter(BirdIsStopped.self)
+            stateMachine.enter(BirdIsIdle.self)
         }
     }
 }

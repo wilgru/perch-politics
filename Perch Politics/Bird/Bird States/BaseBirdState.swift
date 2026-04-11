@@ -14,12 +14,11 @@ class BaseBirdState : GKState {
     
     var time: TimeInterval = 0.0
     var timePerFrame: TimeInterval = 0.125
-    var timeBeforeNextState: TimeInterval = 2.0
+    var timeBeforeNextState: TimeInterval = 0.20
     var distanceBeforeWakingUp: CGFloat = 32.0
 
     var validNextStates = [AnyClass]()
     var nextState: AnyClass?
-    
     var action : SKAction! = nil
     
     init(flock: Flock, bird: Bird) {
@@ -37,12 +36,12 @@ class BaseBirdState : GKState {
         guard let stateMachine = stateMachine else { return }
         time += seconds
         
-        if bird.distance < distanceBeforeWakingUp {
+        if let nextState = nextState, time >= timeBeforeNextState {
+            stateMachine.enter(nextState.self)
+        } else if bird.distance < distanceBeforeWakingUp {
             bird.position = bird.actualDesitnation
         } else if bird.distance > distanceBeforeWakingUp {
             stateMachine.enter(BirdIsAwake.self)
-        } else if let nextState = nextState, time >= timeBeforeNextState {
-            stateMachine.enter(nextState.self)
         }
     }
     
