@@ -15,6 +15,7 @@
 		0583BC181E5731F90003AE2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583BC171E5731F90003AE2A /* AppDelegate.swift */; };
 		0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1B1E5731F90003AE2A /* Assets.xcassets */; };
 		0583BC1F1E5731F90003AE2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1D1E5731F90003AE2A /* Main.storyboard */; };
+		FA2CCE092F8A37E3002FF851 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = FA2CCE082F8A37E3002FF851 /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		0583BC201E5731F90003AE2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05A806981E702B0C002D12FB /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Perch Politics.entitlements"; sourceTree = "<group>"; };
+		FA2CCE082F8A37E3002FF851 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = Developer.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 				FA1E3C032F314A9700573A23 /* Bird */,
 				0583BC171E5731F90003AE2A /* AppDelegate.swift */,
 				0583BC1B1E5731F90003AE2A /* Assets.xcassets */,
+				FA2CCE082F8A37E3002FF851 /* AppIcon.icon */,
 				05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */,
 				0583BC1D1E5731F90003AE2A /* Main.storyboard */,
 				0583BC201E5731F90003AE2A /* Info.plist */,
@@ -175,6 +178,7 @@
 				0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */,
 				055006471E7031C800B9788F /* InfoPlist.strings in Resources */,
 				0583BC1F1E5731F90003AE2A /* Main.storyboard in Resources */,
+				FA2CCE092F8A37E3002FF851 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Perch Politics/Perch Politics.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020.366;
@@ -355,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Perch Politics/Perch Politics.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020.366;

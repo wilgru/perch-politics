@@ -1,6 +1,6 @@
 #  Perch Politics
 
-A fock of birds desktop pet for macOS that flocks to the top left corner of the active window or to the dock.
+A flock of birds desktop pet for macOS that flocks to the top left corner of the active window or to the dock.
 
 Created as a gift for a friend to digitally imortalise their real life pet birds into desktop pets.
 
