@@ -2,8 +2,8 @@
 /* Class = "NSMenuItem"; title = "Chickens"; ObjectID = "NY8-P3-MeQ"; */
 "NY8-P3-MeQ.title" = "";
 
-/* Class = "NSMenuItem"; title = "About Perch Politcs"; ObjectID = "Pf3-0n-k6j"; */
-"Pf3-0n-k6j.title" = "Acerca de Gato";
+/* Class = "NSMenuItem"; title = "About Perch Politics"; ObjectID = "Pf3-0n-k6j"; */
+"Pf3-0n-k6j.title" = "Acerca de Perch Politics";
 
 /* Class = "NSMenuItem"; title = "E-mail support"; ObjectID = "PmL-VL-Wp0"; */
 "PmL-VL-Wp0.title" = "E-mail de apoio";
@@ -11,20 +11,20 @@
 /* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "cwL-P1-jid"; */
 "cwL-P1-jid.title" = "Smart Links";
 
-/* Class = "NSMenuItem"; title = "Black Cat"; ObjectID = "dCy-57-Agv"; */
-"dCy-57-Agv.title" = "Gato Preto";
+/* Class = "NSMenuItem"; title = "Green Bub"; ObjectID = "dCy-57-Agv"; */
+"dCy-57-Agv.title" = "Green Bub";
 
-/* Class = "NSMenuItem"; title = "White Cat"; ObjectID = "B55-0y-mu7"; */
-"B55-0y-mu7.title" = "Gato Branco";
+/* Class = "NSMenuItem"; title = "Kyra"; ObjectID = "B55-0y-mu7"; */
+"B55-0y-mu7.title" = "Kyra";
 
-/* Class = "NSMenuItem"; title = "Cat on the App Store"; ObjectID = "dmG-nl-S2m"; */
-"dmG-nl-S2m.title" = "Gato na App Store";
+/* Class = "NSMenuItem"; title = "Perch Politics on the App Store"; ObjectID = "dmG-nl-S2m"; */
+"dmG-nl-S2m.title" = "Perch Politics na App Store";
 
-/* Class = "NSMenuItem"; title = "Cat Homepage"; ObjectID = "atb-lf-I86"; */
-"atb-lf-I86.title" = "Homepage de Gato";
+/* Class = "NSMenuItem"; title = "Perch Politics Homepage"; ObjectID = "atb-lf-I86"; */
+"atb-lf-I86.title" = "Homepage de Perch Politics";
 
 /* Class = "NSMenu"; title = "Chickens"; ObjectID = "up7-pO-HZt"; */
-"up7-pO-HZt.title" = "Gatos";
+"up7-pO-HZt.title" = "Galinhas";
 
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "xt2-tK-vnb"; */
 "xt2-tK-vnb.title" = "Sair";

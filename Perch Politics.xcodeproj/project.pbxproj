@@ -120,7 +120,7 @@
 				FA1E3C032F314A9700573A23 /* Bird */,
 			);
 			name = "Perch Politics";
-			productName = Cat;
+			productName = "Perch Politics";
 			productReference = 0583BC141E5731F90003AE2A /* Perch Politics.app */;
 			productType = "com.apple.product-type.application";
 		};

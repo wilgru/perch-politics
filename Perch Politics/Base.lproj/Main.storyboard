@@ -11,9 +11,9 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="Perch Politcs" id="1Xt-HY-uBw" userLabel="Perch Politics">
+                            <menuItem title="Perch Politics" id="1Xt-HY-uBw" userLabel="Perch Politics">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Perch Politcs" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Perch Politics" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
                                         <menuItem title="About Perch Politics" id="5kV-Vb-QxS" userLabel="About Perch Politics">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -47,7 +47,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit Cat" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit Perch Politics" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -59,19 +59,19 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Chickens" id="hH3-tB-6Qa">
                                     <items>
-                                        <menuItem title="Kyra" image="White Cat Small" id="SeG-qu-fiO">
+                                        <menuItem title="Kyra" image="Kyra Small" id="SeG-qu-fiO">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="White Cat"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="toggleBird:" target="Voe-Tx-rLC" id="N1v-qG-o6J"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Green Bub" image="Black Cat Small" id="v0m-7O-Rh6">
+                                        <menuItem title="Green Bub" image="Green Bub Small" id="v0m-7O-Rh6">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Black Cat"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="toggleBird:" target="Voe-Tx-rLC" id="sxp-8d-PZQ"/>
@@ -111,19 +111,19 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Chickens" id="up7-pO-HZt">
                                 <items>
-                                    <menuItem title="Kyra" image="White Cat Small" id="B55-0y-mu7">
+                                    <menuItem title="Kyra" image="Kyra Small" id="B55-0y-mu7">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="White Cat"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="toggleBird:" target="Voe-Tx-rLC" id="PvV-ye-LWo"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Green Bub" image="Black Cat Small" id="dCy-57-Agv">
+                                    <menuItem title="Green Bub" image="Green Bub Small" id="dCy-57-Agv">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Black Cat"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="toggleBird:" target="Voe-Tx-rLC" id="pMR-QG-s11"/>
@@ -147,19 +147,19 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Chickens" id="t8L-uo-KUZ">
                                 <items>
-                                    <menuItem title="Kyra" image="White Cat Small" id="cOd-i7-KI6">
+                                    <menuItem title="Kyra" image="Kyra Small" id="cOd-i7-KI6">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="White Cat"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="toggleBird:" target="Voe-Tx-rLC" id="AiT-Ko-z7K"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Green Bub" image="Black Cat Small" id="TiP-RX-I6g">
+                                    <menuItem title="Green Bub" image="Green Bub Small" id="TiP-RX-I6g">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Black Cat"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="toggleBird:" target="Voe-Tx-rLC" id="lnH-WG-dSY"/>
@@ -175,7 +175,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Black Cat Small" width="16" height="16"/>
-        <image name="White Cat Small" width="16" height="16"/>
+        <image name="Green Bub Small" width="16" height="16"/>
+        <image name="Kyra Small" width="16" height="16"/>
     </resources>
 </document>
