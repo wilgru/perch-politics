@@ -11,39 +11,39 @@ import SpriteKit
 import GameplayKit
 
 final class Bird {
+    // TODO: make consts
     private enum SpawnEdge: CaseIterable {
         case left
         case right
         case top
     }
-
     private let birdSize = NSSize(width: 64, height: 64)
     private let activeWindowLevel = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow)))
     private let settledWindowLevel = NSWindow.Level(rawValue: NSWindow.Level.normal.rawValue - 1)
 
     weak let flock: Flock?
+    let birdIdentity: BirdIdentity
     
+    var spawned = false
     var sprite: SKSpriteNode
     var textures: SKTextureAtlas
     var windowController: NSWindowController?
     var stateMachine: GKStateMachine?
-    var timer: Timer?
-    
-    let birdIdentity: BirdIdentity
-    var spawned = false
-    var settledOrder: Int? {
-        didSet {
-            guard settledOrder != nil else { return }
-            moveWindowToBack()
-        }
-    }
     var direction: BirdDirection = .left
     var velocity: NSPoint = NSPoint(x: 1, y: 1)
+    
     var position: NSPoint {
         didSet {
             self.windowController?.window?.setFrameOrigin(position)
         }
     }
+    
+    var distance: CGFloat {
+        get {
+            return hypot(actualDesitnation.x - self.position.x, actualDesitnation.y - self.position.y)
+        }
+    }
+    
     var actualDesitnation: NSPoint {
         get {
             guard let flock = flock else { return .zero }
@@ -52,9 +52,11 @@ final class Bird {
             return NSPoint(x: flock.destination.x + CGFloat(order * 64), y: flock.destination.y) // TODO: use const for 64?
         }
     }
-    var distance: CGFloat {
-        get {
-            return hypot(actualDesitnation.x - self.position.x, actualDesitnation.y - self.position.y)
+    
+    var settledOrder: Int? {
+        didSet {
+            guard settledOrder != nil else { return }
+            moveWindowToBack()
         }
     }
 
@@ -98,24 +100,6 @@ final class Bird {
         window.level = settledWindowLevel
         window.orderBack(nil)
     }
-
-    init(
-        flock: Flock,
-        birdIdentity: BirdIdentity
-    ) {
-        self.flock = flock
-        self.birdIdentity = birdIdentity
-        
-        let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("idle_left"))
-        sprite.anchorPoint = NSPoint.zero
-        self.sprite = sprite
-        self.textures = SKTextureAtlas(named: birdIdentity.atlasName)
-        self.position = .zero
-    }
-    
-    deinit {
-        despawn()
-    }
     
     func spawn() {
         guard let flock = flock else { return }
@@ -157,14 +141,8 @@ final class Bird {
         ])
         stateMachine.enter(BirdIsAwake.self)
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
-            stateMachine.update(deltaTime: timer.timeInterval)
-        }
-        RunLoop.current.add(timer, forMode: .common)
-        
         self.windowController = windowController
         self.stateMachine = stateMachine
-        self.timer = timer
         self.spawned = true
         
         moveWindowToFront()
@@ -174,15 +152,36 @@ final class Bird {
         guard spawned else { return }
         
         windowController?.close()
-        timer?.invalidate()
         
         self.spawned = false
-        self.timer = nil
         self.stateMachine = nil
         self.windowController = nil
     }
     
     func toggleSpawn() {
         spawned ? despawn() : spawn()
+    }
+    
+    func update(deltaTime: TimeInterval) {
+        guard spawned else { return }
+        stateMachine?.update(deltaTime: deltaTime)
+    }
+    
+    init(
+        flock: Flock,
+        birdIdentity: BirdIdentity
+    ) {
+        self.flock = flock
+        self.birdIdentity = birdIdentity
+        
+        let sprite = SKSpriteNode(texture: SKTextureAtlas(named: birdIdentity.atlasName).textureNamed("idle_left"))
+        sprite.anchorPoint = NSPoint.zero
+        self.sprite = sprite
+        self.textures = SKTextureAtlas(named: birdIdentity.atlasName)
+        self.position = .zero
+    }
+    
+    deinit {
+        despawn()
     }
 }

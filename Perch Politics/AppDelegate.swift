@@ -13,7 +13,7 @@ import GameplayKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     let flock = Flock()
-    var otherTimers: [Timer] = []
+    var updateTimer: Timer?
     
     let initialBirdNames = UserDefaults.standard.stringArray(forKey: "initialBirdNames") ?? {
         let fallback = [BirdIdentity.kyra.name]
@@ -36,12 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updateMenus()
     }
     
-    // TODO: still needed?
-    @objc func updateStateMachineLegacy(_ timer: Timer) {
-        guard let machine = timer.userInfo as? GKStateMachine else { return }
-        machine.update(deltaTime: timer.timeInterval)
-    }
-    
     func updateMenus() {
         let spawnedBirdNames = flock.spawnedBirds.map { $0.birdIdentity.name }
         for menu in [barChickensMenu, dockChickensMenu] {
@@ -60,11 +54,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     } // TODO: is this still needed?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let flockTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
-            self.flock.updateDestination()
+        let updateTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
+            self.flock.update(deltaTime: timer.timeInterval)
         }
-        RunLoop.current.add(flockTimer, forMode: .common)
-        otherTimers.append(flockTimer)
+        RunLoop.current.add(updateTimer, forMode: .common)
+        self.updateTimer = updateTimer
         
         let initialBirdIdentities = BirdIdentity.allCases.filter { birdIdentity in
             initialBirdNames.contains(birdIdentity.name)
@@ -87,10 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         for bird in flock.birds {
             bird.despawn()
         }
-//        flockContext.birds.removeAll()
-        
-        for otherTimer in otherTimers {
-            otherTimer.invalidate()
-        }
+
+        updateTimer?.invalidate()
     }
 }

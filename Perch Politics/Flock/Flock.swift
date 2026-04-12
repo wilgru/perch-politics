@@ -106,6 +106,14 @@ final class Flock {
             destination = NSPoint(x: newDestination.x - 32, y: newDestination.y - 6)
         }
     }
+
+    func update(deltaTime: TimeInterval) {
+        updateDestination()
+
+        for bird in spawnedBirds {
+            bird.update(deltaTime: deltaTime)
+        }
+    }
     
     func spawnBird(birdIdentity: BirdIdentity) {
         let foundBird = birds.first { bird in
