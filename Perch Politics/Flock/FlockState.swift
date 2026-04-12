@@ -20,8 +20,8 @@ final class FlockState: GKState {
         guard stateMachine != nil else { return }
         guard let flock = flock else { return }
         
-        let perchPosition = flock.activeWindowGeometry ?? flock.dockGeometry ?? (32, 0, 0)
-        let distance = hypot(perchPosition.leftX - 32 - flock.destination.x, perchPosition.topY - flock.destination.y)
+        let perchPosition = flock.activeWindowGeometry ?? flock.dockGeometry ?? NSPoint(x: 32, y: 0)
+        let distance = hypot(perchPosition.x - 32 - flock.destination.x, perchPosition.y - flock.destination.y)
         
         if (distance >= 32) { // TODO: set this as a const and use in the bird states too
             for bird in flock.birds {
@@ -29,8 +29,8 @@ final class FlockState: GKState {
             }
         }
         
-        if (perchPosition.leftX - 32 != flock.destination.x || perchPosition.topY != flock.destination.y) {
-            flock.destination = NSPoint(x: perchPosition.leftX - 32, y: perchPosition.topY - 6)
+        if (perchPosition.x - 32 != flock.destination.x || perchPosition.y != flock.destination.y) {
+            flock.destination = NSPoint(x: perchPosition.x - 32, y: perchPosition.y - 6)
         }
     }
 }

@@ -84,11 +84,7 @@ final class Flock {
         return NSPoint(x: repulsion.x * separationStrength, y: repulsion.y * separationStrength)
     }
     
-    var activeWindowGeometry: ( // TODO: just retrun NSPoint
-        leftX: Double,
-        rightX: Double,
-        topY: Double
-    )? {
+    var activeWindowGeometry: NSPoint? {
         let options = CGWindowListOption.optionOnScreenOnly
         guard let windowList = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: AnyObject]] else {
             print("Could not get window list")
@@ -112,29 +108,24 @@ final class Flock {
                    windowPID == frontAppPID,
                    layer == 0 // layer 0 for normal windows
                 {
-                if CFGetTypeID(boundsAny as CFTypeRef) == CFDictionaryGetTypeID() {
-                    guard let bounds = CGRect(dictionaryRepresentation: boundsAny as! CFDictionary) else {
-                        print("Could not convert type of bounds to CFDictionary")
-                        return nil
+                    if CFGetTypeID(boundsAny as CFTypeRef) == CFDictionaryGetTypeID() {
+                        guard let bounds = CGRect(dictionaryRepresentation: boundsAny as! CFDictionary) else {
+                            print("Could not convert type of bounds to CFDictionary")
+                            return nil
+                        }
+                        
+                        return NSPoint(
+                            x: Double(bounds.origin.x + 32 + 30), //30 for corner radius
+                            y: Double(screenHeight - bounds.origin.y)
+                        )
                     }
-                    
-                    return (
-                        leftX: Double(bounds.origin.x + 32 + 30), //30 for corner radius
-                        rightX:  Double(bounds.origin.x + bounds.size.width - 32),
-                        topY:  Double(screenHeight - bounds.origin.y)
-                    )
                 }
-            }
         }
 //        print("Could not find a window to get geometry for")
         return nil
     }
     
-    var dockGeometry: ( // TODO: just retrun NSPoint
-        leftX: Double,
-        rightX: Double,
-        topY: Double
-    )? {
+    var dockGeometry: NSPoint? {
         guard let screen = NSScreen.main else {
             print("Could not get main screen when getting dock")
             return nil
@@ -148,13 +139,12 @@ final class Flock {
             return nil
         }
 
-        let centerX = frame.midX
+        let centerX = frame.midX - CGFloat((spawnedBirds.count * 64) / 2) // TODO: use const for 64
         let topY = visible.minY
 
-        return (
-            leftX: Double(centerX),
-            rightX: Double(centerX),
-            topY: Double(topY - 1) // the dock seems to have a 1px padding, so subtracting 1 to account for that
+        return NSPoint(
+            x: Double(centerX),
+            y: Double(topY - 1) // the dock seems to have a 1px padding, so subtracting 1 to account for that)
         )
     }
 }
