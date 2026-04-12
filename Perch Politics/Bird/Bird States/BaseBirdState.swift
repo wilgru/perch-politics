@@ -15,7 +15,7 @@ class BaseBirdState : GKState {
     var time: TimeInterval = 0.0
     var timePerFrame: TimeInterval = timerInterval
     var timeBeforeNextState: TimeInterval = 0.20
-    var distanceBeforeWakingUp: CGFloat = 32.0
+    var distanceBeforeFlying: CGFloat = 32.0
 
     var validNextStates = [AnyClass]()
     var nextState: AnyClass?
@@ -38,10 +38,10 @@ class BaseBirdState : GKState {
         
         if let nextState = nextState, time >= timeBeforeNextState {
             stateMachine.enter(nextState.self)
-        } else if bird.distance < distanceBeforeWakingUp {
+        } else if bird.distance < distanceBeforeFlying {
             bird.position = bird.actualDesitnation
-        } else if bird.distance > distanceBeforeWakingUp {
-            stateMachine.enter(BirdIsAwake.self)
+        } else if bird.distance > distanceBeforeFlying {
+            stateMachine.enter(BirdIsFlying.self)
         }
     }
     

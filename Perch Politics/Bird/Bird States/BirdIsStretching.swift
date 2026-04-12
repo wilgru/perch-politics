@@ -18,7 +18,7 @@ class BirdIsStretching: BaseBirdState {
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
         timePerFrame = 0.20
-        validNextStates = [ BirdIsAwake.self, BirdIsIdle.self ]
+        validNextStates = [ BirdIsFlying.self, BirdIsIdle.self ]
         nextState = BirdIsIdle.self
     }
 

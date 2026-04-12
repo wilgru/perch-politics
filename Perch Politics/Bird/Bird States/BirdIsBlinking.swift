@@ -26,12 +26,12 @@ class BirdIsBlinking: BaseBirdState {
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
         timeBeforeNextState = 0.20
-        validNextStates = [ BirdIsIdle.self, BirdIsStretching.self ]
+        validNextStates = [ BirdIsIdle.self, BirdIsFlying.self ]
         nextState = BirdIsIdle.self
     }
 
     override func didEnter(from previousState: GKState?) {
-        nextState = Int.random(in: 1...4) == 4 ? BirdIsStretching.self : BirdIsIdle.self
+        nextState = BirdIsIdle.self
         action = blinkingAction
         super.didEnter(from: previousState)
     }

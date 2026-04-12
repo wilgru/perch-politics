@@ -134,12 +134,9 @@ final class Bird {
             BirdIsIdle(flock: flock, bird: self),
             BirdIsBlinking(flock: flock, bird: self),
             BirdIsStretching(flock: flock, bird: self),
-            BirdIsGoingToSleep(flock: flock, bird: self),
-            BirdIsSleeping(flock: flock, bird: self),
-            BirdIsAwake(flock: flock, bird: self),
             BirdIsFlying(flock: flock, bird: self),
         ])
-        stateMachine.enter(BirdIsAwake.self)
+        stateMachine.enter(BirdIsIdle.self)
         
         self.windowController = windowController
         self.stateMachine = stateMachine
