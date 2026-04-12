@@ -9,11 +9,12 @@ import SpriteKit
 import GameplayKit
 
 class BirdIsFlying: BaseBirdState {
-    var speed: CGFloat = 16.0
+    var speed: CGFloat = birdFlightSpeed
+    var velocityDampen: CGFloat = birdFlightVelocityDampen
     
     var frames: [BirdDirection:[String]] = [
-        .left: ["fly_left_1","fly_left_2", "fly_left_3"],
-        .right: ["fly_right_1","fly_right_2", "fly_right_3"],
+        .left: ["fly_left_1","fly_left_2", "fly_left_3", "fly_left_2"],
+        .right: ["fly_right_1","fly_right_2", "fly_right_3", "fly_right_2"],
     ]
     
     var movingAction: SKAction {
@@ -23,6 +24,7 @@ class BirdIsFlying: BaseBirdState {
     
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
+        timePerFrame = 0.15
         validNextStates = [ BirdIsIdle.self ]
     }
     
@@ -60,14 +62,14 @@ class BirdIsFlying: BaseBirdState {
         
         if bird.distance <= 20 { // TODO: use const for this value?
             bird.position = bird.actualDesitnation
-//            velocity = .zero // keeping the last set velocity make for interesting movement next time they move
+            // velocity = .zero // keeping the last set velocity make for interesting movement next time they move
         } else {
             let cohesion = flock.cohesionVelocity(for: bird)
             let separation = flock.separationVelocity(for: bird)
             
             bird.velocity = NSPoint(
-                x: (bird.velocity.x * 0.80) + cohesion.x + separation.x + (speed * delta.x / bird.distance),
-                y: (bird.velocity.y * 0.80) + cohesion.y + separation.y + (speed * delta.y / bird.distance)
+                x: (bird.velocity.x * velocityDampen) + cohesion.x + separation.x + (speed * delta.x / bird.distance),
+                y: (bird.velocity.y * velocityDampen) + cohesion.y + separation.y + (speed * delta.y / bird.distance)
             )
             
             bird.position = NSPoint(x: bird.position.x + bird.velocity.x, y: bird.position.y + bird.velocity.y)

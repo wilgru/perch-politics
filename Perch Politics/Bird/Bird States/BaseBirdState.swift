@@ -13,7 +13,7 @@ class BaseBirdState : GKState {
     unowned let bird: Bird
     
     var time: TimeInterval = 0.0
-    var timePerFrame: TimeInterval = 0.125
+    var timePerFrame: TimeInterval = timerInterval
     var timeBeforeNextState: TimeInterval = 0.20
     var distanceBeforeWakingUp: CGFloat = 32.0
 

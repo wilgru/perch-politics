@@ -25,6 +25,7 @@ class BirdIsBlinking: BaseBirdState {
     
     override init(flock: Flock, bird: Bird) {
         super.init(flock: flock, bird: bird)
+        timeBeforeNextState = 0.20
         validNextStates = [ BirdIsIdle.self, BirdIsStretching.self ]
         nextState = BirdIsIdle.self
     }

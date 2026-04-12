@@ -12,8 +12,8 @@ import GameplayKit
 final class Flock {
     var birds: [Bird] = []
     var destination: NSPoint = .zero
-    var cohesionStrength: CGFloat = 0.01
-    var separationStrength: CGFloat = 2
+    var cohesionStrength: CGFloat = birdFlockCohesionStrength
+    var separationStrength: CGFloat = birdFlockSeparationStrength
     
     var spawnedBirds: [Bird] {
         birds.filter { bird in

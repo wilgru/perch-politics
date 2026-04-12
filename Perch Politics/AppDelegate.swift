@@ -54,7 +54,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     } // TODO: is this still needed?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let updateTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
+        let updateTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { timer in
             self.flock.update(deltaTime: timer.timeInterval)
         }
         RunLoop.current.add(updateTimer, forMode: .common)
