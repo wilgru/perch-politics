@@ -11,11 +11,16 @@ import GameplayKit
 
 final class Flock {
     var birds: [Bird] = []
+    var destination: NSPoint = .zero
+    var cohesionStrength: CGFloat = 0.01
+    var separationStrength: CGFloat = 2
+    
     var spawnedBirds: [Bird] {
         birds.filter { bird in
             bird.spawned
         }
     }
+    
     var settledBirdsCount: Int {
         get {
             birds.count { bird in
@@ -24,67 +29,7 @@ final class Flock {
         }
     }
     
-    var destination: NSPoint = .zero
-    var cohesionStrength: CGFloat = 0.01
-    var separationStrength: CGFloat = 2
-
-    private func getFlockmates(for givenBird: Bird) -> [Bird] {
-        spawnedBirds.filter { bird in
-            bird !== givenBird
-        }
-    }
-    
-    func spawnBird(birdIdentity: BirdIdentity) {
-        let foundBird = birds.first { bird in
-            bird.birdIdentity == birdIdentity
-        }
-        foundBird?.spawn()
-    }
-//    
-//    func despawnBird(birdIdentity: BirdIdentity) {
-//        let foundBird = birds.first { bird in
-//            bird.birdIdentity == birdIdentity
-//        }
-//        
-//        foundBird?.despawn()
-//    }
-    
-    // Returns a velocity adjustment vector steering toward the center of mass of local flockmates (cohesion)
-    func cohesionVelocity(for givenBird: Bird) -> NSPoint {
-        let flockmates = getFlockmates(for: givenBird) // flockmates being the other birds that isnt the given bird
-        guard !flockmates.isEmpty else { return .zero }
-        
-        // Calculate center of mass
-        let birdPositionsSum = flockmates.reduce(NSPoint.zero) { sum, flockmate in
-            return NSPoint(x: sum.x + flockmate.position.x, y: sum.y + flockmate.position.y)
-        }
-        let count = CGFloat(flockmates.count)
-        let centerPoint = NSPoint(x: birdPositionsSum.x / count, y: birdPositionsSum.y / count)
-        
-        // Steer towards the center
-        let steer = NSPoint(x: (centerPoint.x - givenBird.position.x) * cohesionStrength, y: (centerPoint.y - givenBird.position.y) * cohesionStrength)
-        return steer
-    }
-
-    // Returns a velocity adjustment vector steering away from close flockmates (separation)
-    func separationVelocity(for givenBird: Bird) -> NSPoint {
-        var repulsion = NSPoint.zero
-        for flockmate in getFlockmates(for: givenBird) {
-            let distanceX = givenBird.position.x - flockmate.position.x
-            let distanceY = givenBird.position.y - flockmate.position.y
-            let distanceSquared = distanceX * distanceX + distanceY * distanceY
-            
-            if distanceSquared > 0 {
-                // The closer they are, the stronger the repulsion
-                repulsion.x += distanceX / distanceSquared
-                repulsion.y += distanceY / distanceSquared
-            }
-        }
-        
-        return NSPoint(x: repulsion.x * separationStrength, y: repulsion.y * separationStrength)
-    }
-    
-    var activeWindowGeometry: NSPoint? {
+    var activeWindowDestination: NSPoint? {
         let options = CGWindowListOption.optionOnScreenOnly
         guard let windowList = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: AnyObject]] else {
             print("Could not get window list")
@@ -121,11 +66,10 @@ final class Flock {
                     }
                 }
         }
-//        print("Could not find a window to get geometry for")
         return nil
     }
     
-    var dockGeometry: NSPoint? {
+    var dockDestination: NSPoint? {
         guard let screen = NSScreen.main else {
             print("Could not get main screen when getting dock")
             return nil
@@ -146,5 +90,68 @@ final class Flock {
             x: Double(centerX),
             y: Double(topY - 1) // the dock seems to have a 1px padding, so subtracting 1 to account for that)
         )
+    }
+    
+    func updateDestination() {
+        let newDestination = activeWindowDestination ?? dockDestination ?? NSPoint(x: 32, y: 0)
+        let distance = hypot(newDestination.x - 32 - destination.x, newDestination.y - destination.y)
+        
+        if (distance >= 32) { // TODO: set this as a const and use in the bird states too
+            for bird in birds {
+                bird.settledOrder = nil
+            }
+        }
+        
+        if (newDestination.x - 32 != destination.x || newDestination.y != destination.y) {
+            destination = NSPoint(x: newDestination.x - 32, y: newDestination.y - 6)
+        }
+    }
+    
+    func spawnBird(birdIdentity: BirdIdentity) {
+        let foundBird = birds.first { bird in
+            bird.birdIdentity == birdIdentity
+        }
+        foundBird?.spawn()
+    }
+    
+    private func getFlockmates(for givenBird: Bird) -> [Bird] {
+        spawnedBirds.filter { bird in
+            bird !== givenBird
+        }
+    }
+    
+    // Returns a velocity adjustment vector steering toward the center of mass of local flockmates (cohesion)
+    func cohesionVelocity(for givenBird: Bird) -> NSPoint {
+        let flockmates = getFlockmates(for: givenBird) // flockmates being the other birds that isnt the given bird
+        guard !flockmates.isEmpty else { return .zero }
+        
+        // Calculate center of mass
+        let birdPositionsSum = flockmates.reduce(NSPoint.zero) { sum, flockmate in
+            return NSPoint(x: sum.x + flockmate.position.x, y: sum.y + flockmate.position.y)
+        }
+        let count = CGFloat(flockmates.count)
+        let centerPoint = NSPoint(x: birdPositionsSum.x / count, y: birdPositionsSum.y / count)
+        
+        // Steer towards the center
+        let steer = NSPoint(x: (centerPoint.x - givenBird.position.x) * cohesionStrength, y: (centerPoint.y - givenBird.position.y) * cohesionStrength)
+        return steer
+    }
+
+    // Returns a velocity adjustment vector steering away from close flockmates (separation)
+    func separationVelocity(for givenBird: Bird) -> NSPoint {
+        var repulsion = NSPoint.zero
+        for flockmate in getFlockmates(for: givenBird) {
+            let distanceX = givenBird.position.x - flockmate.position.x
+            let distanceY = givenBird.position.y - flockmate.position.y
+            let distanceSquared = distanceX * distanceX + distanceY * distanceY
+            
+            if distanceSquared > 0 {
+                // The closer they are, the stronger the repulsion
+                repulsion.x += distanceX / distanceSquared
+                repulsion.y += distanceY / distanceSquared
+            }
+        }
+        
+        return NSPoint(x: repulsion.x * separationStrength, y: repulsion.y * separationStrength)
     }
 }

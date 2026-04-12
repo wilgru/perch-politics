@@ -60,11 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     } // TODO: is this still needed?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let flockStateMachine = GKStateMachine(states: [FlockState(flock: flock)])
-        flockStateMachine.enter(FlockState.self)
-        
         let flockTimer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true) { timer in
-            flockStateMachine.update(deltaTime: timer.timeInterval)
+            self.flock.updateDestination()
         }
         RunLoop.current.add(flockTimer, forMode: .common)
         otherTimers.append(flockTimer)
