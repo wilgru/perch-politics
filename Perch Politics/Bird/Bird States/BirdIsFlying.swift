@@ -28,6 +28,7 @@ class BirdIsFlying: BaseBirdState {
     
     override func didEnter(from previousState: GKState?) {
         time = 0.0
+        bird.moveWindowToFront()
         
         let delta = NSPoint(x: bird.actualDesitnation.x - bird.position.x, y: bird.actualDesitnation.y - bird.position.y)
         bird.direction = BirdDirection(vector: delta)

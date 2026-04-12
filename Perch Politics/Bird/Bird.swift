@@ -18,6 +18,8 @@ final class Bird {
     }
 
     private let birdSize = NSSize(width: 64, height: 64)
+    private let activeWindowLevel = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow)))
+    private let settledWindowLevel = NSWindow.Level(rawValue: NSWindow.Level.normal.rawValue - 1)
 
     weak let flock: Flock?
     
@@ -29,7 +31,12 @@ final class Bird {
     
     let birdIdentity: BirdIdentity
     var spawned = false
-    var settledOrder: Int?
+    var settledOrder: Int? {
+        didSet {
+            guard settledOrder != nil else { return }
+            moveWindowToBack()
+        }
+    }
     var direction: BirdDirection = .left
     var velocity: NSPoint = NSPoint(x: 1, y: 1)
     var position: NSPoint {
@@ -78,6 +85,20 @@ final class Bird {
         }
     }
 
+    func moveWindowToFront() {
+        guard let window = windowController?.window else { return }
+
+        window.level = activeWindowLevel
+        window.orderFrontRegardless()
+    }
+
+    func moveWindowToBack() {
+        guard let window = windowController?.window else { return }
+
+        window.level = settledWindowLevel
+        window.orderBack(nil)
+    }
+
     init(
         flock: Flock,
         birdIdentity: BirdIdentity
@@ -116,7 +137,7 @@ final class Bird {
         window.backgroundColor = NSColor.clear
         window.hasShadow = false  // Shadow is not updated when sprite changes
         window.isMovableByWindowBackground = true
-        window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow))) // Over all windows and menu bar, but under the screen saver
+        window.level = activeWindowLevel // Over all windows and menu bar, but under the screen saver
         window.ignoresMouseEvents = false
         window.collectionBehavior = [.canJoinAllSpaces, .stationary]
         window.contentView = spriteView
@@ -145,6 +166,8 @@ final class Bird {
         self.stateMachine = stateMachine
         self.timer = timer
         self.spawned = true
+        
+        moveWindowToFront()
     }
     
     func despawn() {
