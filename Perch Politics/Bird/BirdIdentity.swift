@@ -11,6 +11,8 @@ enum BirdIdentity: String, CaseIterable {
     case greenBub = "Green Bub"
     case fatFeet = "Fat Feet"
     case peg = "Peg"
+    case chico = "Chico"
+    case charlie = "Charlie"
 
     var name: String { rawValue }
     
@@ -20,6 +22,8 @@ enum BirdIdentity: String, CaseIterable {
         case .greenBub: return "Kyra"
         case .fatFeet: return "Kyra"
         case .peg: return "Kyra"
+        case .chico: return "Kyra"
+        case .charlie: return "Kyra"
         }
     }
     

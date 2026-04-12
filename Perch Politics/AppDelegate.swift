@@ -16,8 +16,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var updateTimer: Timer?
     
     let initialBirdNames = UserDefaults.standard.stringArray(forKey: "initialBirdNames") ?? {
-        let fallback = [BirdIdentity.kyra.name]
+        let fallback = [
+            BirdIdentity.greenBub.name,
+            BirdIdentity.fatFeet.name,
+            BirdIdentity.peg.name,
+            BirdIdentity.chico.name,
+            BirdIdentity.charlie.name
+        ]
         UserDefaults.standard.set(fallback, forKey: "initialBirdNames")
+        
         return fallback
     }()
     

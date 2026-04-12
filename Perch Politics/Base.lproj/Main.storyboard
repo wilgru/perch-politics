@@ -77,6 +77,42 @@
                                                 <action selector="toggleBird:" target="Voe-Tx-rLC" id="sxp-8d-PZQ"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Fat Feet" id="zsY-oD-mus">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="toggleBird:" target="Voe-Tx-rLC" id="8bk-WF-jg7"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Peg" id="3Qm-Qe-XLk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="toggleBird:" target="Voe-Tx-rLC" id="5R2-xe-Twz"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Chico" id="MXx-TB-8Eq">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="toggleBird:" target="Voe-Tx-rLC" id="Iyb-c4-FgE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Charlie" id="rnc-OF-LId">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="toggleBird:" target="Voe-Tx-rLC" id="A6B-lG-3xc"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -122,13 +158,49 @@
                                             <action selector="toggleBird:" target="Voe-Tx-rLC" id="lnH-WG-dSY"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Fat Feet" id="cXQ-WA-tcC" userLabel="Fat Feet">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="NvJ-wf-OVp"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Peg" id="aRl-7C-lLw" userLabel="Peg">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="MUV-wM-gaW"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Chico" id="BDR-PN-4qQ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="wt3-vc-qal"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Charlie" id="atE-xA-cZx">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="KNa-TF-NDR"/>
+                                        </connections>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </menuItem>
                     </items>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="-240" y="-133"/>
+            <point key="canvasLocation" x="-195" y="-111"/>
         </scene>
     </scenes>
 </document>
