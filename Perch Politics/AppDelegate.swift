@@ -21,45 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return fallback
     }()
     
-    @IBOutlet var menu : NSMenu!
-    
-    @IBOutlet var skinMenu : NSMenu! { // toggled bird menu
-        didSet {
-//            for item in skinMenu.items {
-//                let birdIsToggled = initialBirdNames.contains { birdName in
-//                    birdName == item.title
-//                }
-//                
-//                item.state = birdIsToggled ? .on : .off
-//            }
-        }
-    }
-    
-    @IBOutlet var barSkinMenu : NSMenu! { // bar toggled bird menu
-        didSet {
-//            for item in barSkinMenu.items {
-//                let birdIsToggled = initialBirdNames.contains { birdName in
-//                    birdName == item.title
-//                }
-//                
-//                item.state = birdIsToggled ? .on : .off
-//            }
-        }
-    }
-    
-    @IBOutlet var dockMenu : NSMenu!
-    
-    @IBOutlet var dockSkinMenu : NSMenu! { // dock toggled bird menu
-        didSet {
-//            for item in dockSkinMenu.items {
-//                let birdIsToggled = initialBirdNames.contains { birdName in
-//                    birdName == item.title
-//                }
-//                
-//                item.state = birdIsToggled ? .on : .off
-//            }
-        }
-    }
+    @IBOutlet var barChickensMenu : NSMenu!
+    @IBOutlet var dockMenu : NSMenu! // TODO: is this still needed?
+    @IBOutlet var dockChickensMenu : NSMenu!
     
     @IBAction func toggleBird(_ sender: NSMenuItem) {
         let birdToToggleName = sender.title
@@ -80,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func updateMenus() {
         let spawnedBirdNames = flock.spawnedBirds.map { $0.birdIdentity.name }
-        for menu in [skinMenu, barSkinMenu, dockSkinMenu] {
+        for menu in [barChickensMenu, dockChickensMenu] {
             for item in menu!.items {
                 item.state = spawnedBirdNames.contains { birdName in
                     item.title == birdName
@@ -93,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
         return dockMenu
-    }
+    } // TODO: is this still needed?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let flockStateMachine = GKStateMachine(states: [FlockState(flock: flock)])

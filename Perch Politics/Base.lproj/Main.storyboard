@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -57,9 +57,9 @@
                             </menuItem>
                             <menuItem title="Chickens" id="8E6-gd-Suv">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Chickens" id="hH3-tB-6Qa">
+                                <menu key="submenu" title="Chickens" id="hH3-tB-6Qa" userLabel="Bar Chickens Menu">
                                     <items>
-                                        <menuItem title="Kyra" image="Kyra Small" id="SeG-qu-fiO">
+                                        <menuItem title="Kyra" id="SeG-qu-fiO">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
@@ -68,7 +68,7 @@
                                                 <action selector="toggleBird:" target="Voe-Tx-rLC" id="N1v-qG-o6J"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Green Bub" image="Green Bub Small" id="v0m-7O-Rh6">
+                                        <menuItem title="Green Bub" id="v0m-7O-Rh6">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
@@ -87,67 +87,24 @@
                     </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                        <outlet property="dockMenu" destination="hHV-E1-cw8" id="O3s-zu-25O"/>
                     </connections>
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Perch_Politics" customModuleProvider="target">
                     <connections>
-                        <outlet property="barSkinMenu" destination="hH3-tB-6Qa" id="SnR-EG-JkI"/>
+                        <outlet property="barChickensMenu" destination="hH3-tB-6Qa" id="kOi-57-uEO"/>
+                        <outlet property="dockChickensMenu" destination="t8L-uo-KUZ" id="IlA-e8-IQd"/>
                         <outlet property="dockMenu" destination="hHV-E1-cw8" id="dTR-m3-7XL"/>
-                        <outlet property="dockSkinMenu" destination="t8L-uo-KUZ" id="WbW-O6-XfE"/>
-                        <outlet property="menu" destination="0SE-YZ-5GS" id="Rug-Fh-RwH"/>
-                        <outlet property="skinMenu" destination="up7-pO-HZt" id="APQ-kn-FVJ"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <menu title="Context Menu" id="0SE-YZ-5GS">
-                    <items>
-                        <menuItem title="About Perch Politics" id="Pf3-0n-k6j" userLabel="About Perch Politics">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="PY7-aB-l4g"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Chickens" id="NY8-P3-MeQ">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Chickens" id="up7-pO-HZt">
-                                <items>
-                                    <menuItem title="Kyra" image="Kyra Small" id="B55-0y-mu7">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="PvV-ye-LWo"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Green Bub" image="Green Bub Small" id="dCy-57-Agv">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="toggleBird:" target="Voe-Tx-rLC" id="pMR-QG-s11"/>
-                                        </connections>
-                                    </menuItem>
-                                </items>
-                            </menu>
-                        </menuItem>
-                        <menuItem isSeparatorItem="YES" id="jOb-ac-X5z"/>
-                        <menuItem title="Quit" id="xt2-tK-vnb">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="terminate:" target="Ady-hI-5gd" id="7MU-Fw-4Rb"/>
-                            </connections>
-                        </menuItem>
-                    </items>
-                </menu>
-                <menu title="Context Menu" id="hHV-E1-cw8">
+                <menu title="Context Menu" id="hHV-E1-cw8" userLabel="Dock Menu">
                     <items>
                         <menuItem title="Chickens" id="Lan-bk-S9h">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Chickens" id="t8L-uo-KUZ">
+                            <menu key="submenu" title="Chickens" id="t8L-uo-KUZ" userLabel="Dock Chickens Menu">
                                 <items>
-                                    <menuItem title="Kyra" image="Kyra Small" id="cOd-i7-KI6">
+                                    <menuItem title="Kyra" id="cOd-i7-KI6">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Kyra"/>
@@ -156,7 +113,7 @@
                                             <action selector="toggleBird:" target="Voe-Tx-rLC" id="AiT-Ko-z7K"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Green Bub" image="Green Bub Small" id="TiP-RX-I6g">
+                                    <menuItem title="Green Bub" id="TiP-RX-I6g">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="representedObject" value="Green Bub"/>
@@ -174,8 +131,4 @@
             <point key="canvasLocation" x="-240" y="-133"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Green Bub Small" width="16" height="16"/>
-        <image name="Kyra Small" width="16" height="16"/>
-    </resources>
 </document>
