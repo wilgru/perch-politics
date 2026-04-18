@@ -19,7 +19,7 @@ enum BirdIdentity: String, CaseIterable {
     var atlasName: String {
         switch self {
         case .kyra: return "Kyra"
-        case .greenBub: return "Kyra"
+        case .greenBub: return "GreenBub"
         case .fatFeet: return "Kyra"
         case .peg: return "Kyra"
         case .chico: return "Kyra"
