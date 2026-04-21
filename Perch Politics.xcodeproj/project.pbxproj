@@ -15,6 +15,7 @@
 		0583BC181E5731F90003AE2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583BC171E5731F90003AE2A /* AppDelegate.swift */; };
 		0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1B1E5731F90003AE2A /* Assets.xcassets */; };
 		0583BC1F1E5731F90003AE2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0583BC1D1E5731F90003AE2A /* Main.storyboard */; };
+		FA06D79E2FF5AA5E00C09E3A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA06D79D2FF5AA5E00C09E3A /* Credits.rtf */; };
 		FA2CCE092F8A37E3002FF851 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = FA2CCE082F8A37E3002FF851 /* AppIcon.icon */; };
 		FAB9AEF42F8B779100EC5EBD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9AEF32F8B779100EC5EBD /* Constants.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		0583BC201E5731F90003AE2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05A806981E702B0C002D12FB /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Perch Politics.entitlements"; sourceTree = "<group>"; };
+		FA06D79D2FF5AA5E00C09E3A /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		FA2CCE082F8A37E3002FF851 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		FA3FBD3F2F29F64300BAEE1D /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = Developer.xcconfig; sourceTree = "<group>"; };
 		FAB9AEF32F8B779100EC5EBD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				FA2CCE082F8A37E3002FF851 /* AppIcon.icon */,
 				05AF44EB1E6EEF8B006F01AE /* Perch Politics.entitlements */,
 				0583BC1D1E5731F90003AE2A /* Main.storyboard */,
+				FA06D79D2FF5AA5E00C09E3A /* Credits.rtf */,
 				0583BC201E5731F90003AE2A /* Info.plist */,
 				055006491E7031C800B9788F /* InfoPlist.strings */,
 			);
@@ -181,6 +184,7 @@
 				0583BC1C1E5731F90003AE2A /* Assets.xcassets in Resources */,
 				055006471E7031C800B9788F /* InfoPlist.strings in Resources */,
 				0583BC1F1E5731F90003AE2A /* Main.storyboard in Resources */,
+				FA06D79E2FF5AA5E00C09E3A /* Credits.rtf in Resources */,
 				FA2CCE092F8A37E3002FF851 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,12 +346,13 @@
 		};
 		0583BC241E5731F90003AE2A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05813449259BBA0E0059E50C /* Default.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Perch Politics/Perch Politics.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2020.366;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = NM8YX338UY;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -357,6 +362,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -364,12 +370,13 @@
 		};
 		0583BC251E5731F90003AE2A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05813449259BBA0E0059E50C /* Default.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Perch Politics/Perch Politics.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2020.366;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = NM8YX338UY;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -379,6 +386,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

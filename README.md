@@ -5,6 +5,7 @@ A flock of birds desktop pet for macOS that flocks to the top left corner of the
 Created as a gift for a friend to digitally imortalise their real life pet birds into desktop pets.
 
 Forked from [mmar/Cat](https://github.com/mmar/Cat).
+Original work © 2017-2020 Matusalem Marques. Perch Politics modifications © 2026 William Gruszka.
 
 ## Building
 
