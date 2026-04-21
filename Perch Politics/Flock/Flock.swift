@@ -29,7 +29,7 @@ final class Flock {
         }
     }
     
-    var activeWindowDestination: NSPoint? {
+    var activeWindowInfo: (windowNumber: Int, destination: NSPoint)? {
         let options = CGWindowListOption.optionOnScreenOnly
         guard let windowList = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: AnyObject]] else {
             print("Could not get window list")
@@ -45,28 +45,44 @@ final class Flock {
             print("Could not find front app PID")
             return nil
         }
+
+        guard frontAppPID != ProcessInfo.processInfo.processIdentifier else {
+            return nil
+        }
         
         for window in windowList {
             if let windowPID = window[kCGWindowOwnerPID as String] as? Int,
+               let windowNumber = window[kCGWindowNumber as String] as? Int,
                let boundsAny = window[kCGWindowBounds as String],
                let layer = window[kCGWindowLayer as String] as? Int,
-                   windowPID == frontAppPID,
-                   layer == 0 // layer 0 for normal windows
-                {
+                    windowPID == frontAppPID,
+                    layer == 0 // layer 0 for normal windows
+                 {
                     if CFGetTypeID(boundsAny as CFTypeRef) == CFDictionaryGetTypeID() {
                         guard let bounds = CGRect(dictionaryRepresentation: boundsAny as! CFDictionary) else {
                             print("Could not convert type of bounds to CFDictionary")
                             return nil
                         }
                         
-                        return NSPoint(
-                            x: Double(bounds.origin.x + 32 + 30), //30 for corner radius
-                            y: Double(screenHeight - bounds.origin.y)
+                        return (
+                            windowNumber: windowNumber,
+                            destination: NSPoint(
+                                x: Double(bounds.origin.x + 32 + 30), //30 for corner radius
+                                y: Double(screenHeight - bounds.origin.y)
+                            )
                         )
                     }
                 }
         }
         return nil
+    }
+
+    var activeWindowNumber: Int? {
+        activeWindowInfo?.windowNumber
+    }
+
+    var activeWindowDestination: NSPoint? {
+        activeWindowInfo?.destination
     }
     
     var dockDestination: NSPoint? {

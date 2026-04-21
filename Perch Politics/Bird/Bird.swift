@@ -19,7 +19,7 @@ final class Bird {
     }
     private let birdSize = NSSize(width: 64, height: 64)
     private let activeWindowLevel = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.statusWindow)))
-    private let settledWindowLevel = NSWindow.Level(rawValue: NSWindow.Level.normal.rawValue - 1)
+    private let settledWindowLevel = NSWindow.Level.normal
 
     weak let flock: Flock?
     let birdIdentity: BirdIdentity
@@ -56,7 +56,7 @@ final class Bird {
     var settledOrder: Int? {
         didSet {
             guard settledOrder != nil else { return }
-            moveWindowToBack()
+            moveWindowBehindActiveWindow()
         }
     }
 
@@ -94,11 +94,15 @@ final class Bird {
         window.orderFrontRegardless()
     }
 
-    func moveWindowToBack() {
+    func moveWindowBehindActiveWindow() {
         guard let window = windowController?.window else { return }
 
         window.level = settledWindowLevel
-        window.orderBack(nil)
+        if let activeWindowNumber = flock?.activeWindowNumber {
+            window.order(.below, relativeTo: activeWindowNumber)
+        } else {
+            window.orderBack(nil)
+        }
     }
     
     func spawn() {
