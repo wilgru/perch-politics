@@ -20,10 +20,10 @@ enum BirdIdentity: String, CaseIterable {
         switch self {
         case .kyra: return "Kyra"
         case .greenBub: return "GreenBub"
-        case .fatFeet: return "Kyra"
-        case .peg: return "Kyra"
-        case .chico: return "Kyra"
-        case .charlie: return "Kyra"
+        case .fatFeet: return "FatFeet"
+        case .peg: return "Peg"
+        case .chico: return "Chico"
+        case .charlie: return "Charlie"
         }
     }
     
