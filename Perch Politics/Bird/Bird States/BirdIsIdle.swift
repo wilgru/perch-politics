@@ -40,16 +40,16 @@ class BirdIsIdle: BaseBirdState {
             return
         }
         
-        let randomInt = Int.random(in: 0...300)
-        if randomInt == 100 {
+        let randomInt = Int.random(in: 0...500)
+        if (randomInt == 200 || randomInt == 300) {
             stateMachine.enter(BirdIsBlinking.self)
             return
-        } else if randomInt == 200 {
+        } else if randomInt == 400 {
             bird.direction = bird.direction == .left ? .right : .left
             bird.sprite.removeAllActions()
             bird.sprite.run(idleAction)
             return
-        } else if randomInt == 300 {
+        } else if randomInt == 500 {
             stateMachine.enter(BirdIsStretching.self)
             return
         }
